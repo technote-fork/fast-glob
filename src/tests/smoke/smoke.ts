@@ -123,7 +123,7 @@ function getTestMarker(items: string[], item: string): DebugCompareTestMarker {
 
 function getNodeGlobEntries(pattern: Pattern, ignore?: Pattern, cwd?: string, options?: glob.IOptions): string[] {
 	const entries = glob.sync(pattern, {
-		cwd: cwd === undefined ? process.cwd() : cwd,
+		cwd: cwd ?? process.cwd(),
 		ignore: ignore === undefined ? [] : [ignore],
 		...options
 	});
@@ -163,7 +163,7 @@ function getFastGlobEntriesStream(pattern: Pattern, ignore?: Pattern, cwd?: stri
 
 function getFastGlobOptions(ignore?: Pattern, cwd?: string, options?: Options): Options {
 	return {
-		cwd: cwd === undefined ? process.cwd() : cwd,
+		cwd: cwd ?? process.cwd(),
 		ignore: ignore === undefined ? [] : [ignore],
 		onlyFiles: false,
 		...options

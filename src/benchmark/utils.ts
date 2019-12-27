@@ -45,9 +45,7 @@ export function getStdev(values: number[]): number {
 }
 
 export function getEnvironmentAsString(name: string, value: string): string {
-	const environment = process.env[name];
-
-	return environment === undefined ? value : environment;
+	return process.env[name] ?? value;
 }
 
 export function getEnvironmentAsInteger(name: string, value: number): number {
