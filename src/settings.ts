@@ -156,7 +156,7 @@ export default class Settings {
 	public readonly braceExpansion: boolean = this._getValue(this._options.braceExpansion, true);
 	public readonly caseSensitiveMatch: boolean = this._getValue(this._options.caseSensitiveMatch, true);
 	public readonly concurrency: number = this._getValue(this._options.concurrency, CPU_COUNT);
-	public readonly cwd: string = this._getValue(this._options.cwd, process.cwd());
+	public readonly cwd: string = this._getValue(this._options.cwd, () => process.cwd());
 	public readonly deep: number = this._getValue(this._options.deep, Infinity);
 	public readonly dot: boolean = this._getValue(this._options.dot, false);
 	public readonly extglob: boolean = this._getValue(this._options.extglob, true);
@@ -183,8 +183,12 @@ export default class Settings {
 		}
 	}
 
-	private _getValue<T>(option: T | undefined, value: T): T {
-		return option === undefined ? value : option;
+	private _getValue<T extends boolean | number | string | Pattern[]>(option: T | undefined, value: T | (() => T)): T {
+		if (option === undefined) {
+			return typeof value === 'function' ? value() : value;
+		}
+
+		return option;
 	}
 
 	private _getFileSystemMethods(methods: Partial<FileSystemAdapter> = {}): FileSystemAdapter {
