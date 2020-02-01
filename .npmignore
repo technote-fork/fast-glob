@@ -4,7 +4,7 @@
 .gitignore
 .vsts
 tsconfig.json
-.eslintrc.json
+.eslintrc
 
 # Log & Cache files
 .eslintcache
