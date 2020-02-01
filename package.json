@@ -48,6 +48,7 @@
     "glob": "^7.1.4",
     "minimist": "^1.2.0",
     "mocha": "^6.2.1",
+    "nyc": "^15.0.0",
     "rimraf": "^3.0.0",
     "sinon": "^7.5.0",
     "tiny-glob": "^0.2.6",
@@ -63,6 +64,7 @@
   "scripts": {
     "clean": "rimraf out",
     "lint": "eslint \"src/**/*.ts\" --cache",
+    "cover": "yarn compile && yarn nyc --reporter=lcov --reporter=text yarn test",
     "compile": "tsc",
     "test": "mocha \"out/**/*.spec.js\" -s 0",
     "smoke": "mocha \"out/**/*.smoke.js\" -s 0",
