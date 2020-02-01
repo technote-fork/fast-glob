@@ -25,6 +25,8 @@ out/**/*.spec.{d.ts,js}
 .github
 fixtures
 src
+__tests__
+test
 node_modules
 typings
 coverage

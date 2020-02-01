@@ -41,6 +41,7 @@
     "micromatch": "^4.0.2"
   },
   "devDependencies": {
+    "@istanbuljs/nyc-config-typescript": "^1.0.1",
     "@nodelib/fs.macchiato": "^1.0.2",
     "@types/compute-stdev": "^1.0.0",
     "@types/easy-table": "^0.0.32",
@@ -66,6 +67,7 @@
     "rimraf": "^3.0.1",
     "sinon": "^8.1.1",
     "tiny-glob": "^0.2.6",
+    "ts-node": "^8.6.2",
     "typescript": "^3.7.5"
   },
   "publishConfig": {
@@ -74,24 +76,32 @@
   "scripts": {
     "clean": "rimraf out",
     "test": "yarn lint && yarn cover",
-    "lint": "eslint \"src/**/*.ts\" --cache",
-    "cover": "yarn compile && yarn nyc --reporter=lcov --reporter=text yarn mocha \"out/**/*.spec.js\" -s 0",
+    "lint": "eslint 'src/**/*.ts' --cache",
+    "cover": "nyc mocha '__tests__/**/*.spec.ts'",
     "compile": "tsc",
-    "smoke": "mocha \"out/**/*.smoke.js\" -s 0",
-    "smoke:sync": "mocha \"out/**/*.smoke.js\" -s 0 --grep \"\\(sync\\)\"",
-    "smoke:async": "mocha \"out/**/*.smoke.js\" -s 0 --grep \"\\(async\\)\"",
-    "smoke:stream": "mocha \"out/**/*.smoke.js\" -s 0 --grep \"\\(stream\\)\"",
+    "smoke": "mocha '__tests__/**/*.smoke.ts'",
+    "smoke:sync": "mocha '__tests__/**/*.smoke.ts' --grep '\\(sync\\)'",
+    "smoke:async": "mocha '__tests__/**/*.smoke.ts' --grep '\\(async\\)'",
+    "smoke:stream": "mocha '__tests__/**/*.smoke.ts' --grep '\\(stream\\)'",
     "build": "yarn clean && yarn compile",
     "watch": "yarn clean && yarn compile -- --sourceMap --watch",
     "bench": "yarn bench-async && yarn bench-stream && yarn bench-sync",
     "bench-async": "yarn bench-async-flatten && yarn bench-async-deep",
     "bench-stream": "yarn bench-stream-flatten && yarn bench-stream-deep",
     "bench-sync": "yarn bench-sync-flatten && yarn bench-sync-deep",
-    "bench-async-flatten": "node ./out/benchmark --mode async --pattern \"*\"",
-    "bench-async-deep": "node ./out/benchmark --mode async --pattern \"**\"",
-    "bench-stream-flatten": "node ./out/benchmark --mode stream --pattern \"*\"",
-    "bench-stream-deep": "node ./out/benchmark --mode stream --pattern \"**\"",
-    "bench-sync-flatten": "node ./out/benchmark --mode sync --pattern \"*\"",
-    "bench-sync-deep": "node ./out/benchmark --mode sync --pattern \"**\""
+    "bench-async-flatten": "node ./out/benchmark --mode async --pattern '*'",
+    "bench-async-deep": "node ./out/benchmark --mode async --pattern '**'",
+    "bench-stream-flatten": "node ./out/benchmark --mode stream --pattern '*'",
+    "bench-stream-deep": "node ./out/benchmark --mode stream --pattern '**'",
+    "bench-sync-flatten": "node ./out/benchmark --mode sync --pattern '*'",
+    "bench-sync-deep": "node ./out/benchmark --mode sync --pattern '**'"
+  },
+  "nyc": {
+    "extends": "@istanbuljs/nyc-config-typescript",
+    "all": true,
+    "reporter": [
+      "text",
+      "lcov"
+    ]
   }
 }
