@@ -1,5 +1,5 @@
 {
-  "name": "fast-glob",
+  "name": "@technote-space/fast-glob",
   "version": "3.1.1",
   "description": "It's a very fast and efficient glob library for Node.js",
   "license": "MIT",
@@ -8,6 +8,13 @@
     "name": "Denis Malinochkin",
     "url": "https://mrmlnc.com"
   },
+  "contributors": [
+    {
+      "name": "Technote",
+      "email": "technote.space@gmail.com",
+      "url": "https://technote.space"
+    }
+  ],
   "engines": {
     "node": ">=8"
   },
