@@ -5,6 +5,7 @@
 .vsts
 tsconfig.json
 .eslintrc
+.idea
 
 # Log & Cache files
 .eslintcache
@@ -26,3 +27,5 @@ fixtures
 src
 node_modules
 typings
+coverage
+.nyc_output
