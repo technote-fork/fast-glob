@@ -18,4 +18,6 @@ out/
 
 # Other files
 package-lock.json
-yarn.lock
+
+/coverage
+/.nyc_output

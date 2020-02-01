@@ -5,6 +5,10 @@ import Settings, { DEFAULT_FILE_SYSTEM_ADAPTER } from './settings';
 
 describe('Settings', () => {
 	it('should return instance with default values', () => {
+		const saveCwd = process.cwd;
+		let called = 0;
+		process.cwd = () => String(++called);
+
 		const settings = new Settings();
 
 		assert.deepStrictEqual(settings.fs, DEFAULT_FILE_SYSTEM_ADAPTER);
@@ -27,15 +31,27 @@ describe('Settings', () => {
 		assert.ok(settings.onlyFiles);
 		assert.ok(settings.unique);
 		assert.strictEqual(settings.concurrency, os.cpus().length);
-		assert.strictEqual(settings.cwd, process.cwd());
+		assert.strictEqual(settings.cwd, '1');
+		assert.strictEqual(called, 1);
+
+		process.cwd = saveCwd;
 	});
 
 	it('should return instance with custom values', () => {
+		const saveCwd = process.cwd;
+		let called = 0;
+		process.cwd = () => String(++called);
+
 		const settings = new Settings({
-			onlyFiles: false
+			onlyFiles: false,
+			cwd: 'test'
 		});
 
 		assert.ok(!settings.onlyFiles);
+		assert.strictEqual(settings.cwd, 'test');
+		assert.strictEqual(called, 0);
+
+		process.cwd = saveCwd;
 	});
 
 	it('should set the "onlyFiles" option when the "onlyDirectories" is enabled', () => {
