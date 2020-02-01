@@ -1,5 +1,11 @@
 # fast-glob
 
+[![npm version](https://badge.fury.io/js/%40technote-space%2Ffast-glob.svg)](https://badge.fury.io/js/%40technote-space%2Ffast-glob)
+[![CI Status](https://github.com/technote-space/fast-glob/workflows/CI/badge.svg)](https://github.com/technote-space/fast-glob/actions)
+[![codecov](https://codecov.io/gh/technote-space/fast-glob/branch/master/graph/badge.svg)](https://codecov.io/gh/technote-space/fast-glob)
+[![CodeFactor](https://www.codefactor.io/repository/github/technote-space/fast-glob/badge)](https://www.codefactor.io/repository/github/technote-space/fast-glob)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/technote-space/fast-glob/blob/master/LICENSE)
+
 > It's a very fast and efficient [glob][glob_definition] library for [Node.js][node_js].
 
 This package provides methods for traversing the file system and returning pathnames that matched a defined set of a specified pattern according to the rules used by the Unix Bash shell with some simplifications, meanwhile results are returned in **arbitrary order**. Quick, simple, effective.
