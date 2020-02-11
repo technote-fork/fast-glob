@@ -94,7 +94,8 @@
     "bench-stream-flatten": "node ./out/benchmark --mode stream --pattern '*'",
     "bench-stream-deep": "node ./out/benchmark --mode stream --pattern '**'",
     "bench-sync-flatten": "node ./out/benchmark --mode sync --pattern '*'",
-    "bench-sync-deep": "node ./out/benchmark --mode sync --pattern '**'"
+    "bench-sync-deep": "node ./out/benchmark --mode sync --pattern '**'",
+    "update": "ncu -u && yarn install && yarn upgrade && yarn audit"
   },
   "nyc": {
     "extends": "@istanbuljs/nyc-config-typescript",
