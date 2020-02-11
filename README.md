@@ -12,7 +12,8 @@ This package provides methods for traversing the file system and returning pathn
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-**Table of Contents**
+<details>
+<summary>Details</summary>
 
 - [Highlights](#highlights)
 - [Donation](#donation)
@@ -25,42 +26,11 @@ This package provides methods for traversing the file system and returning pathn
   - [Asynchronous](#asynchronous)
   - [Synchronous](#synchronous)
   - [Stream](#stream)
-    - [patterns](#patterns)
-    - [[options]](#options)
   - [Helpers](#helpers)
-    - [`generateTasks(patterns, [options])`](#generatetaskspatterns-options)
-      - [patterns](#patterns-1)
-      - [[options]](#options-1)
-    - [`isDynamicPattern(pattern, [options])`](#isdynamicpatternpattern-options)
-      - [pattern](#pattern)
-      - [[options]](#options-2)
-    - [`escapePath(pattern)`](#escapepathpattern)
-      - [pattern](#pattern-1)
 - [Options](#options)
   - [Common options](#common-options)
-    - [concurrency](#concurrency)
-    - [cwd](#cwd)
-    - [deep](#deep)
-    - [followSymbolicLinks](#followsymboliclinks)
-    - [fs](#fs)
-    - [ignore](#ignore)
-    - [suppressErrors](#suppresserrors)
-    - [throwErrorOnBrokenSymbolicLink](#throwerroronbrokensymboliclink)
   - [Output control](#output-control)
-    - [absolute](#absolute)
-    - [markDirectories](#markdirectories)
-    - [objectMode](#objectmode)
-    - [onlyDirectories](#onlydirectories)
-    - [onlyFiles](#onlyfiles)
-    - [stats](#stats)
-    - [unique](#unique)
   - [Matching control](#matching-control)
-    - [braceExpansion](#braceexpansion)
-    - [caseSensitiveMatch](#casesensitivematch)
-    - [dot](#dot)
-    - [extglob](#extglob)
-    - [globstar](#globstar)
-    - [baseNameMatch](#basenamematch)
 - [FAQ](#faq)
 - [What is a static or dynamic pattern?](#what-is-a-static-or-dynamic-pattern)
 - [How to write patterns on Windows?](#how-to-write-patterns-on-windows)
@@ -74,6 +44,7 @@ This package provides methods for traversing the file system and returning pathn
 - [Changelog](#changelog)
 - [License](#license)
 
+</details>
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 ## Highlights
