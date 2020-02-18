@@ -51,7 +51,7 @@
     "@types/micromatch": "^4.0.1",
     "@types/minimist": "^1.2.0",
     "@types/mocha": "^7.0.1",
-    "@types/node": "^13.7.0",
+    "@types/node": "^13.7.1",
     "@types/rimraf": "^2.0.3",
     "@types/sinon": "^7.5.1",
     "compute-stdev": "^1.0.0",
