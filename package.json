@@ -51,7 +51,7 @@
     "@types/micromatch": "^4.0.1",
     "@types/minimist": "^1.2.0",
     "@types/mocha": "^7.0.1",
-    "@types/node": "^13.7.6",
+    "@types/node": "^13.7.7",
     "@types/rimraf": "^2.0.3",
     "@types/sinon": "^7.5.2",
     "compute-stdev": "^1.0.0",
@@ -68,7 +68,7 @@
     "sinon": "^9.0.0",
     "tiny-glob": "^0.2.6",
     "ts-node": "^8.6.2",
-    "typescript": "^3.8.2"
+    "typescript": "^3.8.3"
   },
   "publishConfig": {
     "access": "public"
