@@ -34,7 +34,7 @@ describe('Providers → Filters → Error', () => {
 		});
 
 		it('should return true for EPERM error when the `suppressErrors` options is enabled', () => {
-			const filter = getFilter({ suppressErrors: true });
+			const filter = getFilter({suppressErrors: true});
 
 			const actual = filter(tests.errno.getEperm());
 

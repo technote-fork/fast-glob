@@ -10,8 +10,8 @@ describe('Package', () => {
 			const message = 'Patterns must be a string (non empty) or an array of strings';
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			assert.throws(() => fg.sync(null as any), { message });
-			assert.throws(() => fg.sync(''), { message });
+			assert.throws(() => fg.sync(null as any), {message});
+			assert.throws(() => fg.sync(''), {message});
 		});
 
 		it('should returns entries', () => {
@@ -22,12 +22,12 @@ describe('Package', () => {
 				'fixtures/first/nested/file.md',
 				'fixtures/second/file.md',
 				'fixtures/second/nested/directory/file.md',
-				'fixtures/second/nested/file.md'
+				'fixtures/second/nested/file.md',
 			];
 
 			const actual = fg.sync(['fixtures/**/*.md']);
 
-			actual.sort((a, b) => a.localeCompare(b));
+			actual.sort((val1, val2) => val1.localeCompare(val2));
 
 			assert.deepStrictEqual(actual, expected);
 		});
@@ -39,27 +39,27 @@ describe('Package', () => {
 				'fixtures/first/nested/file.md',
 				'fixtures/second/file.md',
 				'fixtures/second/nested/directory/file.md',
-				'fixtures/second/nested/file.md'
+				'fixtures/second/nested/file.md',
 			];
 
 			const actual = fg.sync(['fixtures/first/**/*.md', 'fixtures/second/**/*.md']);
 
-			actual.sort((a, b) => a.localeCompare(b));
+			actual.sort((val1, val2) => val1.localeCompare(val2));
 
 			assert.deepStrictEqual(actual, expected);
 		});
 	});
 
 	describe('.async', () => {
-		it('should throw an error when input values can not pass validation', async () => {
+		it('should throw an error when input values can not pass validation', async() => {
 			const message = 'Patterns must be a string (non empty) or an array of strings';
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			await assert.rejects(() => fg(null as any), { message });
-			await assert.rejects(() => fg(''), { message });
+			await assert.rejects(() => fg(null as any), {message});
+			await assert.rejects(() => fg(''), {message});
 		});
 
-		it('should returns entries', async () => {
+		it('should returns entries', async() => {
 			const expected: EntryItem[] = [
 				'fixtures/file.md',
 				'fixtures/first/file.md',
@@ -67,29 +67,29 @@ describe('Package', () => {
 				'fixtures/first/nested/file.md',
 				'fixtures/second/file.md',
 				'fixtures/second/nested/directory/file.md',
-				'fixtures/second/nested/file.md'
+				'fixtures/second/nested/file.md',
 			];
 
 			const actual = await fg(['fixtures/**/*.md']);
 
-			actual.sort((a, b) => a.localeCompare(b));
+			actual.sort((val1, val2) => val1.localeCompare(val2));
 
 			assert.deepStrictEqual(actual, expected);
 		});
 
-		it('should returns entries (two sources)', async () => {
+		it('should returns entries (two sources)', async() => {
 			const expected: EntryItem[] = [
 				'fixtures/first/file.md',
 				'fixtures/first/nested/directory/file.md',
 				'fixtures/first/nested/file.md',
 				'fixtures/second/file.md',
 				'fixtures/second/nested/directory/file.md',
-				'fixtures/second/nested/file.md'
+				'fixtures/second/nested/file.md',
 			];
 
 			const actual = await fg(['fixtures/first/**/*.md', 'fixtures/second/**/*.md']);
 
-			actual.sort((a, b) => a.localeCompare(b));
+			actual.sort((val1, val2) => val1.localeCompare(val2));
 
 			assert.deepStrictEqual(actual, expected);
 		});
@@ -100,8 +100,8 @@ describe('Package', () => {
 			const message = 'Patterns must be a string (non empty) or an array of strings';
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			assert.throws(() => fg.stream(null as any), { message });
-			assert.throws(() => fg.stream(''), { message });
+			assert.throws(() => fg.stream(null as any), {message});
+			assert.throws(() => fg.stream(''), {message});
 		});
 
 		it('should returns entries', (done) => {
@@ -112,7 +112,7 @@ describe('Package', () => {
 				'fixtures/first/nested/file.md',
 				'fixtures/second/file.md',
 				'fixtures/second/nested/directory/file.md',
-				'fixtures/second/nested/file.md'
+				'fixtures/second/nested/file.md',
 			];
 
 			const actual: string[] = [];
@@ -122,7 +122,7 @@ describe('Package', () => {
 			stream.on('data', (entry: string) => actual.push(entry));
 			stream.once('error', (error: ErrnoException) => assert.fail(error));
 			stream.once('end', () => {
-				actual.sort((a, b) => a.localeCompare(b));
+				actual.sort((val1, val2) => val1.localeCompare(val2));
 
 				assert.deepStrictEqual(actual, expected);
 				done();
@@ -136,7 +136,7 @@ describe('Package', () => {
 				'fixtures/first/nested/file.md',
 				'fixtures/second/file.md',
 				'fixtures/second/nested/directory/file.md',
-				'fixtures/second/nested/file.md'
+				'fixtures/second/nested/file.md',
 			];
 
 			const actual: string[] = [];
@@ -146,7 +146,7 @@ describe('Package', () => {
 			stream.on('data', (entry: string) => actual.push(entry));
 			stream.once('error', (error: ErrnoException) => assert.fail(error));
 			stream.once('end', () => {
-				actual.sort((a, b) => a.localeCompare(b));
+				actual.sort((val1, val2) => val1.localeCompare(val2));
 
 				assert.deepStrictEqual(actual, expected);
 				done();
@@ -159,13 +159,13 @@ describe('Package', () => {
 			const message = 'Patterns must be a string (non empty) or an array of strings';
 
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			assert.throws(() => fg.generateTasks(null as any), { message });
-			assert.throws(() => fg.generateTasks(''), { message });
+			assert.throws(() => fg.generateTasks(null as any), {message});
+			assert.throws(() => fg.generateTasks(''), {message});
 		});
 
 		it('should return tasks', () => {
 			const expected = [
-				tests.task.builder().base('.').positive('*').build()
+				tests.task.builder().base('.').positive('*').build(),
 			];
 
 			const actual = fg.generateTasks(['*']);
@@ -175,10 +175,10 @@ describe('Package', () => {
 
 		it('should return tasks with negative patterns', () => {
 			const expected = [
-				tests.task.builder().base('.').positive('*').negative('*.txt').negative('*.md').build()
+				tests.task.builder().base('.').positive('*').negative('*.txt').negative('*.md').build(),
 			];
 
-			const actual = fg.generateTasks(['*', '!*.txt'], { ignore: ['*.md'] });
+			const actual = fg.generateTasks(['*', '!*.txt'], {ignore: ['*.md']});
 
 			assert.deepStrictEqual(actual, expected);
 		});

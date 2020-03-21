@@ -6,8 +6,8 @@ import Settings, { DEFAULT_FILE_SYSTEM_ADAPTER } from '../src/settings';
 describe('Settings', () => {
 	it('should return instance with default values', () => {
 		const saveCwd = process.cwd;
-		let called = 0;
-		process.cwd = () => String(++called);
+		let called    = 0;
+		process.cwd   = (): string => String(++called);
 
 		const settings = new Settings();
 
@@ -39,12 +39,12 @@ describe('Settings', () => {
 
 	it('should return instance with custom values', () => {
 		const saveCwd = process.cwd;
-		let called = 0;
-		process.cwd = () => String(++called);
+		let called    = 0;
+		process.cwd   = (): string => String(++called);
 
 		const settings = new Settings({
 			onlyFiles: false,
-			cwd: 'test'
+			cwd: 'test',
 		});
 
 		assert.ok(!settings.onlyFiles);
@@ -56,7 +56,7 @@ describe('Settings', () => {
 
 	it('should set the "onlyFiles" option when the "onlyDirectories" is enabled', () => {
 		const settings = new Settings({
-			onlyDirectories: true
+			onlyDirectories: true,
 		});
 
 		assert.ok(!settings.onlyFiles);
@@ -65,7 +65,7 @@ describe('Settings', () => {
 
 	it('should set the "objectMode" option when the "stats" is enabled', () => {
 		const settings = new Settings({
-			stats: true
+			stats: true,
 		});
 
 		assert.ok(settings.objectMode);
@@ -76,7 +76,7 @@ describe('Settings', () => {
 		const customReaddirSync = (): never[] => [];
 
 		const settings = new Settings({
-			fs: { readdirSync: customReaddirSync }
+			fs: {readdirSync: customReaddirSync},
 		});
 
 		assert.strictEqual(settings.fs.readdirSync, customReaddirSync);

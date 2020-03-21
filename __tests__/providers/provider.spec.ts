@@ -43,7 +43,7 @@ describe('Providers → Provider', () => {
 	describe('.getRootDirectory', () => {
 		it('should return root directory for reader with global base (.)', () => {
 			const provider = getProvider();
-			const task = tests.task.builder().base('.').build();
+			const task     = tests.task.builder().base('.').build();
 
 			const expected = process.cwd();
 
@@ -54,7 +54,7 @@ describe('Providers → Provider', () => {
 
 		it('should return root directory for reader with non-global base (fixtures)', () => {
 			const provider = getProvider();
-			const task = tests.task.builder().base('root').build();
+			const task     = tests.task.builder().base('root').build();
 
 			const expected = path.join(process.cwd(), 'root');
 
@@ -68,7 +68,7 @@ describe('Providers → Provider', () => {
 		it('should return options for reader with global base (.)', () => {
 			const settings = new Settings();
 			const provider = getProvider(settings);
-			const task = tests.task.builder().base('.').positive('*').build();
+			const task     = tests.task.builder().base('.').positive('*').build();
 
 			const actual = provider.getReaderOptions(task);
 
@@ -86,7 +86,7 @@ describe('Providers → Provider', () => {
 
 		it('should return options for reader with non-global base', () => {
 			const provider = getProvider();
-			const task = tests.task.builder().base('root').positive('*').build();
+			const task     = tests.task.builder().base('root').positive('*').build();
 
 			const actual = provider.getReaderOptions(task);
 
@@ -106,7 +106,7 @@ describe('Providers → Provider', () => {
 				noext: false,
 				noglobstar: false,
 				posix: true,
-				strictSlashes: false
+				strictSlashes: false,
 			};
 
 			const actual = provider.getMicromatchOptions();

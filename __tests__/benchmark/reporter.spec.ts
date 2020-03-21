@@ -10,9 +10,9 @@ describe('Benchmark → Reporter', () => {
 		retries: 1,
 		entries: 1,
 		measures: {
-			time: { raw: [1, 1, 1], average: 1, stdev: 0, units: 'ms' },
-			memory: { raw: [1, 1, 1], average: 1, stdev: 0, units: 'MB' }
-		}
+			time: {raw: [1, 1, 1], average: 1, stdev: 0, units: 'ms'},
+			memory: {raw: [1, 1, 1], average: 1, stdev: 0, units: 'MB'},
+		},
 	};
 
 	afterEach(() => {

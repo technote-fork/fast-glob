@@ -5,14 +5,14 @@ import { Dirent, Stats } from '@nodelib/fs.macchiato';
 import { Entry } from '../../../src/types';
 
 class EntryBuilder {
-	private _isFile: boolean = true;
-	private _isDirectory: boolean = false;
-	private _isSymbolicLink: boolean = false;
+	private _isFile         = true;
+	private _isDirectory    = false;
+	private _isSymbolicLink = false;
 
 	private readonly _entry: Entry = {
 		name: '',
 		path: '',
-		dirent: new Dirent()
+		dirent: new Dirent(),
 	};
 
 	public path(filepath: string): this {
@@ -23,7 +23,7 @@ class EntryBuilder {
 	}
 
 	public file(): this {
-		this._isFile = true;
+		this._isFile      = true;
 		this._isDirectory = false;
 
 		return this;
@@ -31,7 +31,7 @@ class EntryBuilder {
 
 	public directory(): this {
 		this._isDirectory = true;
-		this._isFile = false;
+		this._isFile      = false;
 
 		return this;
 	}
@@ -53,7 +53,7 @@ class EntryBuilder {
 			name: this._entry.name,
 			isFile: this._isFile,
 			isDirectory: this._isDirectory,
-			isSymbolicLink: this._isSymbolicLink
+			isSymbolicLink: this._isSymbolicLink,
 		});
 
 		return this._entry;

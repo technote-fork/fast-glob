@@ -15,7 +15,7 @@ type StatSignature = typeof fsStat.stat;
 
 class TestReader extends ReaderStream {
 	protected _walkStream: WalkSignature = sinon.stub() as unknown as WalkSignature;
-	protected _stat: StatSignature = sinon.stub() as unknown as StatSignature;
+	protected _stat: StatSignature       = sinon.stub() as unknown as StatSignature;
 
 	constructor(options?: Options) {
 		super(new Settings(options));
@@ -35,7 +35,7 @@ function getReader(options?: Options): TestReader {
 }
 
 function getReaderOptions(options: Partial<ReaderOptions> = {}): ReaderOptions {
-	return { ...options } as unknown as ReaderOptions;
+	return {...options} as unknown as ReaderOptions;
 }
 
 describe('Readers → ReaderStream', () => {
@@ -49,7 +49,7 @@ describe('Readers → ReaderStream', () => {
 
 	describe('.dynamic', () => {
 		it('should call fs.walk method', () => {
-			const reader = getReader();
+			const reader        = getReader();
 			const readerOptions = getReaderOptions();
 
 			reader.dynamic('root', readerOptions);
@@ -60,8 +60,8 @@ describe('Readers → ReaderStream', () => {
 
 	describe('.static', () => {
 		it('should return entries', (done) => {
-			const reader = getReader();
-			const readerOptions = getReaderOptions({ entryFilter: () => true });
+			const reader        = getReader();
+			const readerOptions = getReaderOptions({entryFilter: () => true});
 
 			reader.stat.onFirstCall().yields(null, new Stats());
 			reader.stat.onSecondCall().yields(null, new Stats());
@@ -79,10 +79,10 @@ describe('Readers → ReaderStream', () => {
 		});
 
 		it('should throw an error when the filter does not suppress the error', (done) => {
-			const reader = getReader();
+			const reader        = getReader();
 			const readerOptions = getReaderOptions({
 				errorFilter: () => false,
-				entryFilter: () => true
+				entryFilter: () => true,
 			});
 
 			reader.stat.onFirstCall().yields(tests.errno.getEperm());
@@ -100,10 +100,10 @@ describe('Readers → ReaderStream', () => {
 		});
 
 		it('should do not throw an error when the filter suppress the error', (done) => {
-			const reader = getReader();
+			const reader        = getReader();
 			const readerOptions = getReaderOptions({
 				errorFilter: () => true,
-				entryFilter: () => true
+				entryFilter: () => true,
 			});
 
 			reader.stat.onFirstCall().yields(tests.errno.getEnoent());
@@ -122,8 +122,8 @@ describe('Readers → ReaderStream', () => {
 		});
 
 		it('should do not include entry when the filter excludes it', (done) => {
-			const reader = getReader();
-			const readerOptions = getReaderOptions({ entryFilter: () => false });
+			const reader        = getReader();
+			const readerOptions = getReaderOptions({entryFilter: () => false});
 
 			reader.stat.yields(null, new Stats());
 

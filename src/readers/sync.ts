@@ -19,7 +19,7 @@ export default class ReaderSync extends Reader<Entry[]> {
 
 		for (const pattern of patterns) {
 			const filepath = this._getFullEntryPath(pattern);
-			const entry = this._getEntry(filepath, pattern, options);
+			const entry    = this._getEntry(filepath, pattern, options);
 
 			if (entry === null || !options.entryFilter(entry)) {
 				continue;

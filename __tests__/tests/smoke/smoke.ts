@@ -33,21 +33,6 @@ export type SmokeTest = {
 type MochaDefinition = Mocha.TestFunction | Mocha.ExclusiveTestFunction;
 type DebugCompareTestMarker = '+' | '-';
 
-export function suite(name: string, tests: Array<SmokeTest | SmokeTest[]>): void {
-	const testCases = getTestCases(tests);
-
-	describe(name, () => {
-		for (const test of testCases) {
-			const title = getTestCaseTitle(test);
-			const definition = getTestCaseMochaDefinition(test);
-
-			definition(`${title} (sync)`, () => testCaseRunner(test, getFastGlobEntriesSync));
-			definition(`${title} (async)`, () => testCaseRunner(test, getFastGlobEntriesAsync));
-			definition(`${title} (stream)`, () => testCaseRunner(test, getFastGlobEntriesStream));
-		}
-	});
-}
-
 function getTestCases(tests: Array<SmokeTest | SmokeTest[]>): SmokeTest[] {
 	return ([] as SmokeTest[]).concat(...tests);
 }
@@ -74,28 +59,41 @@ function getTestCaseMochaDefinition(test: SmokeTest): MochaDefinition {
 	return test.debug === true ? it.only : it;
 }
 
-async function testCaseRunner(test: SmokeTest, func: typeof getFastGlobEntriesSync | typeof getFastGlobEntriesAsync): Promise<void> {
-	const expected = getNodeGlobEntries(test.pattern, test.ignore, test.cwd, test.globOptions);
-	const actual = await func(test.pattern, test.ignore, test.cwd, test.fgOptions);
+function getFastGlobOptions(ignore?: Pattern, cwd?: string, options?: Options): Options {
+	return {
+		cwd: cwd === undefined ? process.cwd() : cwd,
+		ignore: ignore === undefined ? [] : [ignore],
+		onlyFiles: false,
+		...options,
+	};
+}
 
-	if (test.debug === true) {
-		const report = generateDebugReport(expected, actual);
+function getFastGlobEntriesSync(pattern: Pattern, ignore?: Pattern, cwd?: string, options?: Options): string[] {
+	return fg.sync(pattern, getFastGlobOptions(ignore, cwd, options)).sort((val1, val2) => val1.localeCompare(val2));
+}
 
-		console.log(report);
-	}
+function getFastGlobEntriesAsync(pattern: Pattern, ignore?: Pattern, cwd?: string, options?: Options): Promise<string[]> {
+	return fg(pattern, getFastGlobOptions(ignore, cwd, options)).then((entries) => {
+		entries.sort((val1, val2) => val1.localeCompare(val2));
 
-	if (test.broken === true && test.issue === undefined) {
-		assert.fail("This test is marked as «broken», but it doesn't have a issue key.");
-	}
+		return entries;
+	});
+}
 
-	if (test.correct === true && test.reason === undefined) {
-		assert.fail("This test is marked as «correct», but it doesn't have a reason.");
-	}
+function getNodeGlobEntries(pattern: Pattern, ignore?: Pattern, cwd?: string, options?: glob.IOptions): string[] {
+	const entries = glob.sync(pattern, {
+		cwd: cwd === undefined ? process.cwd() : cwd,
+		ignore: ignore === undefined ? [] : [ignore],
+		...options,
+	});
 
-	const isInvertedTest = test.broken === true || test.correct === true;
-	const assertAction = isInvertedTest ? assert.notDeepStrictEqual : assert.deepStrictEqual;
+	entries.sort((val1, val2) => val1.localeCompare(val2));
 
-	assertAction(actual, expected);
+	return entries;
+}
+
+function getTestMarker(items: string[], item: string): DebugCompareTestMarker {
+	return items.includes(item) ? '+' : '-';
 }
 
 function generateDebugReport(expected: string[], actual: string[]): string | null {
@@ -103,7 +101,7 @@ function generateDebugReport(expected: string[], actual: string[]): string | nul
 
 	const items = actual.length > expected.length ? actual : expected;
 
-	if (items.length === 0) {
+	if (!items.length) {
 		return null;
 	}
 
@@ -117,32 +115,28 @@ function generateDebugReport(expected: string[], actual: string[]): string | nul
 	return table.toString();
 }
 
-function getTestMarker(items: string[], item: string): DebugCompareTestMarker {
-	return items.includes(item) ? '+' : '-';
-}
+async function testCaseRunner(test: SmokeTest, func: typeof getFastGlobEntriesSync | typeof getFastGlobEntriesAsync): Promise<void> {
+	const expected = getNodeGlobEntries(test.pattern, test.ignore, test.cwd, test.globOptions);
+	const actual   = await func(test.pattern, test.ignore, test.cwd, test.fgOptions);
 
-function getNodeGlobEntries(pattern: Pattern, ignore?: Pattern, cwd?: string, options?: glob.IOptions): string[] {
-	const entries = glob.sync(pattern, {
-		cwd: cwd === undefined ? process.cwd() : cwd,
-		ignore: ignore === undefined ? [] : [ignore],
-		...options
-	});
+	if (test.debug === true) {
+		const report = generateDebugReport(expected, actual);
 
-	entries.sort((a, b) => a.localeCompare(b));
+		console.log(report);
+	}
 
-	return entries;
-}
+	if (test.broken === true && test.issue === undefined) {
+		assert.fail('This test is marked as «broken», but it doesn\'t have a issue key.');
+	}
 
-function getFastGlobEntriesSync(pattern: Pattern, ignore?: Pattern, cwd?: string, options?: Options): string[] {
-	return fg.sync(pattern, getFastGlobOptions(ignore, cwd, options)).sort((a, b) => a.localeCompare(b));
-}
+	if (test.correct === true && test.reason === undefined) {
+		assert.fail('This test is marked as «correct», but it doesn\'t have a reason.');
+	}
 
-function getFastGlobEntriesAsync(pattern: Pattern, ignore?: Pattern, cwd?: string, options?: Options): Promise<string[]> {
-	return fg(pattern, getFastGlobOptions(ignore, cwd, options)).then((entries) => {
-		entries.sort((a, b) => a.localeCompare(b));
+	const isInvertedTest = test.broken === true || test.correct === true;
+	const assertAction   = isInvertedTest ? assert.notDeepStrictEqual : assert.deepStrictEqual;
 
-		return entries;
-	});
+	assertAction(actual, expected);
 }
 
 function getFastGlobEntriesStream(pattern: Pattern, ignore?: Pattern, cwd?: string, options?: Options): Promise<string[]> {
@@ -154,18 +148,24 @@ function getFastGlobEntriesStream(pattern: Pattern, ignore?: Pattern, cwd?: stri
 		stream.on('data', (entry: string) => entries.push(entry));
 		stream.once('error', reject);
 		stream.once('end', () => {
-			entries.sort((a, b) => a.localeCompare(b));
+			entries.sort((val1, val2) => val1.localeCompare(val2));
 
 			resolve(entries);
 		});
 	});
 }
 
-function getFastGlobOptions(ignore?: Pattern, cwd?: string, options?: Options): Options {
-	return {
-		cwd: cwd === undefined ? process.cwd() : cwd,
-		ignore: ignore === undefined ? [] : [ignore],
-		onlyFiles: false,
-		...options
-	};
+export function suite(name: string, tests: Array<SmokeTest | SmokeTest[]>): void {
+	const testCases = getTestCases(tests);
+
+	describe(name, () => {
+		for (const test of testCases) {
+			const title      = getTestCaseTitle(test);
+			const definition = getTestCaseMochaDefinition(test);
+
+			definition(`${title} (sync)`, () => testCaseRunner(test, getFastGlobEntriesSync));
+			definition(`${title} (async)`, () => testCaseRunner(test, getFastGlobEntriesAsync));
+			definition(`${title} (stream)`, () => testCaseRunner(test, getFastGlobEntriesStream));
+		}
+	});
 }

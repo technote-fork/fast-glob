@@ -27,7 +27,7 @@ function getProvider(options?: Options): TestProvider {
 }
 
 function getEntries(provider: TestProvider, task: Task, entry: Entry): Promise<EntryItem[]> {
-	const reader = new PassThrough({ objectMode: true });
+	const reader = new PassThrough({objectMode: true});
 
 	provider.reader.dynamic.returns(reader);
 	provider.reader.static.returns(reader);
@@ -48,10 +48,10 @@ describe('Providers → ProviderAsync', () => {
 	});
 
 	describe('.read', () => {
-		it('should return entries for dynamic task', async () => {
+		it('should return entries for dynamic task', async() => {
 			const provider = getProvider();
-			const task = tests.task.builder().base('.').positive('*').build();
-			const entry = tests.entry.builder().path('root/file.txt').build();
+			const task     = tests.task.builder().base('.').positive('*').build();
+			const entry    = tests.entry.builder().path('root/file.txt').build();
 
 			const expected = ['root/file.txt'];
 
@@ -61,10 +61,10 @@ describe('Providers → ProviderAsync', () => {
 			assert.deepStrictEqual(actual, expected);
 		});
 
-		it('should return entries for static task', async () => {
+		it('should return entries for static task', async() => {
 			const provider = getProvider();
-			const task = tests.task.builder().base('.').static().positive('*').build();
-			const entry = tests.entry.builder().path('root/file.txt').build();
+			const task     = tests.task.builder().base('.').static().positive('*').build();
+			const entry    = tests.entry.builder().path('root/file.txt').build();
 
 			const expected = ['root/file.txt'];
 
@@ -74,13 +74,13 @@ describe('Providers → ProviderAsync', () => {
 			assert.deepStrictEqual(actual, expected);
 		});
 
-		it('should throw error', async () => {
+		it('should throw error', async() => {
 			const provider = getProvider();
-			const task = tests.task.builder().base('.').positive('*').build();
-			const stream = new PassThrough({
+			const task     = tests.task.builder().base('.').positive('*').build();
+			const stream   = new PassThrough({
 				read(): void {
 					stream.emit('error', tests.errno.getEnoent());
-				}
+				},
 			});
 
 			provider.reader.dynamic.returns(stream);

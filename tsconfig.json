@@ -4,7 +4,8 @@
 		"module": "commonjs",
 		"moduleResolution": "node",
 
-		"outDir": "out",
+		"outDir": "./out",
+		"rootDir": "./src",
 
 		"strict": true,
 		"alwaysStrict": true,
@@ -27,9 +28,6 @@
 
 		"pretty": true
 	},
-	"include": [
-		"src/**/*"
-	],
 	"exclude": [
 		"node_modules",
 		"__tests__",
