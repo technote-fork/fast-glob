@@ -5,9 +5,9 @@ import Runner, { RunnerOptions } from './runner';
 import * as utils from './utils';
 
 const PROCESS_FIRST_ARGUMENT_INDEX = 2;
-const DEFAULT_BENCHMARK_LAUNCHES = 10;
-const DEFAULT_BENCHMARK_MAX_STDEV = 3;
-const DEFAULT_BENCHMARK_RETRIES = 5;
+const DEFAULT_BENCHMARK_LAUNCHES   = 10;
+const DEFAULT_BENCHMARK_MAX_STDEV  = 3;
+const DEFAULT_BENCHMARK_RETRIES    = 5;
 
 type Arguments = RunnerOptions & {
 	basedir: string;
@@ -21,11 +21,11 @@ const defaultArgv: Arguments = {
 	launches: utils.getEnvironmentAsInteger('BENCHMARK_LAUNCHES', DEFAULT_BENCHMARK_LAUNCHES),
 	maxStdev: utils.getEnvironmentAsInteger('BENCHMARK_MAX_STDEV', DEFAULT_BENCHMARK_MAX_STDEV),
 	retries: utils.getEnvironmentAsInteger('BENCHMARK_RETRIES', DEFAULT_BENCHMARK_RETRIES),
-	options: utils.getEnvironmentAsObject('BENCHMARK_OPTIONS', {})
+	options: utils.getEnvironmentAsObject('BENCHMARK_OPTIONS', {}),
 };
 
 const argv = minimist<Arguments>(process.argv.slice(PROCESS_FIRST_ARGUMENT_INDEX), {
-	default: defaultArgv
+	default: defaultArgv,
 });
 
 const runner = new Runner(argv.basedir, argv);

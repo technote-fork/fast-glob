@@ -5,5 +5,5 @@ import * as task from './utils/task';
 export {
 	entry,
 	errno,
-	task
+	task,
 };

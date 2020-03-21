@@ -35,8 +35,8 @@ describe('Providers → ProviderSync', () => {
 	describe('.read', () => {
 		it('should return entries for dynamic task', () => {
 			const provider = getProvider();
-			const task = tests.task.builder().base('.').positive('*').build();
-			const entry = tests.entry.builder().path('root/file.txt').file().build();
+			const task     = tests.task.builder().base('.').positive('*').build();
+			const entry    = tests.entry.builder().path('root/file.txt').file().build();
 
 			provider.reader.dynamic.returns([entry]);
 
@@ -50,8 +50,8 @@ describe('Providers → ProviderSync', () => {
 
 		it('should return entries for static task', () => {
 			const provider = getProvider();
-			const task = tests.task.builder().base('.').static().positive('root/file.txt').build();
-			const entry = tests.entry.builder().path('root/file.txt').file().build();
+			const task     = tests.task.builder().base('.').static().positive('root/file.txt').build();
+			const entry    = tests.entry.builder().path('root/file.txt').file().build();
 
 			provider.reader.static.returns([entry]);
 

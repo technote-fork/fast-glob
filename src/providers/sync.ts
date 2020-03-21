@@ -7,7 +7,7 @@ export default class ProviderSync extends Provider<EntryItem[]> {
 	protected _reader: ReaderSync = new ReaderSync(this._settings);
 
 	public read(task: Task): EntryItem[] {
-		const root = this._getRootDirectory(task);
+		const root    = this._getRootDirectory(task);
 		const options = this._getReaderOptions(task);
 
 		const entries = this.api(root, task, options);

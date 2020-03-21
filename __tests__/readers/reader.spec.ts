@@ -57,7 +57,7 @@ describe('Readers → Reader', () => {
 
 	describe('.makeEntry', () => {
 		it('should return created entry', () => {
-			const reader = getReader();
+			const reader  = getReader();
 			const pattern = 'config.json';
 
 			const actual = reader.makeEntry(new Stats(), pattern);
@@ -68,7 +68,7 @@ describe('Readers → Reader', () => {
 		});
 
 		it('should return created entry with fs.Stats', () => {
-			const reader = getReader({ stats: true });
+			const reader  = getReader({stats: true});
 			const pattern = 'config.json';
 
 			const actual = reader.makeEntry(new Stats(), pattern);

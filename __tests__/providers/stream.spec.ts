@@ -27,7 +27,7 @@ function getProvider(options?: Options): TestProvider {
 }
 
 function getEntries(provider: TestProvider, task: Task, entry: Entry): Promise<EntryItem[]> {
-	const reader = new PassThrough({ objectMode: true });
+	const reader = new PassThrough({objectMode: true});
 
 	provider.reader.dynamic.returns(reader);
 	provider.reader.static.returns(reader);
@@ -56,10 +56,10 @@ describe('Providers → ProviderStream', () => {
 	});
 
 	describe('.read', () => {
-		it('should return entries for dynamic entries', async () => {
+		it('should return entries for dynamic entries', async() => {
 			const provider = getProvider();
-			const task = tests.task.builder().base('.').positive('*').build();
-			const entry = tests.entry.builder().path('root/file.txt').file().build();
+			const task     = tests.task.builder().base('.').positive('*').build();
+			const entry    = tests.entry.builder().path('root/file.txt').file().build();
 
 			const expected = ['root/file.txt'];
 
@@ -69,10 +69,10 @@ describe('Providers → ProviderStream', () => {
 			assert.deepStrictEqual(actual, expected);
 		});
 
-		it('should return entries for static entries', async () => {
+		it('should return entries for static entries', async() => {
 			const provider = getProvider();
-			const task = tests.task.builder().base('.').static().positive('root/file.txt').build();
-			const entry = tests.entry.builder().path('root/file.txt').file().build();
+			const task     = tests.task.builder().base('.').static().positive('root/file.txt').build();
+			const entry    = tests.entry.builder().path('root/file.txt').file().build();
 
 			const expected = ['root/file.txt'];
 
@@ -84,11 +84,11 @@ describe('Providers → ProviderStream', () => {
 
 		it('should emit error to the transform stream', (done) => {
 			const provider = getProvider();
-			const task = tests.task.builder().base('.').positive('*').build();
-			const stream = new PassThrough({
+			const task     = tests.task.builder().base('.').positive('*').build();
+			const stream   = new PassThrough({
 				read(): void {
 					stream.emit('error', tests.errno.getEnoent());
-				}
+				},
 			});
 
 			provider.reader.dynamic.returns(stream);
@@ -103,8 +103,8 @@ describe('Providers → ProviderStream', () => {
 
 		it('should destroy source stream when the destination stream is closed', (done) => {
 			const provider = getProvider();
-			const task = tests.task.builder().base('.').positive('*').build();
-			const stream = new PassThrough();
+			const task     = tests.task.builder().base('.').positive('*').build();
+			const stream   = new PassThrough();
 
 			provider.reader.dynamic.returns(stream);
 

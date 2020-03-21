@@ -3,22 +3,22 @@ import * as assert from 'assert';
 import * as utils from './utils';
 
 describe('Benchmark → Utils', () => {
-	const oldProcessHrtime = process.hrtime;
+	const oldProcessHrtime      = process.hrtime;
 	const oldProcessMemoryUsage = process.memoryUsage;
 
 	before(() => {
 		process.env.FG_TEST_ENV_INTEGER = '1';
-		process.env.FG_TEST_ENV_OBJECT = '{ "value": true }';
+		process.env.FG_TEST_ENV_OBJECT  = '{ "value": true }';
 
-		process.hrtime = (() => [0, 1e7]) as NodeJS.HRTime;
-		process.memoryUsage = () => ({ external: 0, rss: 0, heapTotal: 0, heapUsed: 10 * 1e6, arrayBuffers: 0 });
+		process.hrtime      = (() => [0, 1e7]) as NodeJS.HRTime;
+		process.memoryUsage = () => ({external: 0, rss: 0, heapTotal: 0, heapUsed: 10 * 1e6, arrayBuffers: 0});
 	});
 
 	after(() => {
 		delete process.env.FG_TEST_ENV_INTEGER;
 		delete process.env.FG_TEST_ENV_OBJECT;
 
-		process.hrtime = oldProcessHrtime;
+		process.hrtime      = oldProcessHrtime;
 		process.memoryUsage = oldProcessMemoryUsage;
 	});
 
@@ -142,7 +142,7 @@ describe('Benchmark → Utils', () => {
 
 	describe('.getEnvironmentAsObject', () => {
 		it('should return object', () => {
-			const expected = { value: true };
+			const expected = {value: true};
 
 			const actual = utils.getEnvironmentAsObject('FG_TEST_ENV_OBJECT', {});
 

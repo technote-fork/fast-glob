@@ -27,7 +27,7 @@ describe('Providers → Transformers → Entry', () => {
 	describe('.getTransformer', () => {
 		it('should return transformed entry as string when options is not provided', () => {
 			const transformer = getTransformer();
-			const entry = tests.entry.builder().path('root/file.txt').file().build();
+			const entry       = tests.entry.builder().path('root/file.txt').file().build();
 
 			const expected = 'root/file.txt';
 
@@ -37,8 +37,8 @@ describe('Providers → Transformers → Entry', () => {
 		});
 
 		it('should return transformed entry as object when the `objectMode` option is enabled', () => {
-			const transformer = getTransformer({ objectMode: true });
-			const entry = tests.entry.builder().path('root/file.txt').file().build();
+			const transformer = getTransformer({objectMode: true});
+			const entry       = tests.entry.builder().path('root/file.txt').file().build();
 
 			const expected = entry;
 
@@ -48,8 +48,8 @@ describe('Providers → Transformers → Entry', () => {
 		});
 
 		it('should return transformed entry as object when the `stats` option is enabled', () => {
-			const transformer = getTransformer({ stats: true });
-			const entry = tests.entry.builder().path('root/file.txt').file().stats().build();
+			const transformer = getTransformer({stats: true});
+			const entry       = tests.entry.builder().path('root/file.txt').file().stats().build();
 
 			const expected = entry;
 
@@ -59,8 +59,8 @@ describe('Providers → Transformers → Entry', () => {
 		});
 
 		it('should return entry with absolute filepath when the `absolute` option is enabled', () => {
-			const transformer = getTransformer({ absolute: true });
-			const entry = tests.entry.builder().path('root/file.txt').file().build();
+			const transformer = getTransformer({absolute: true});
+			const entry       = tests.entry.builder().path('root/file.txt').file().build();
 
 			const fullpath = path.join(process.cwd(), 'root', 'file.txt');
 			const expected = utils.path.unixify(fullpath);
@@ -71,8 +71,8 @@ describe('Providers → Transformers → Entry', () => {
 		});
 
 		it('should return entry with trailing slash when the `markDirectories` is enabled', () => {
-			const transformer = getTransformer({ markDirectories: true });
-			const entry = tests.entry.builder().path('root/directory').directory().build();
+			const transformer = getTransformer({markDirectories: true});
+			const entry       = tests.entry.builder().path('root/directory').directory().build();
 
 			const expected = 'root/directory/';
 
@@ -82,8 +82,8 @@ describe('Providers → Transformers → Entry', () => {
 		});
 
 		it('should return correct entry when the `absolute` and `markDirectories` options is enabled', () => {
-			const transformer = getTransformer({ absolute: true, markDirectories: true });
-			const entry = tests.entry.builder().path('root/directory').directory().build();
+			const transformer = getTransformer({absolute: true, markDirectories: true});
+			const entry       = tests.entry.builder().path('root/directory').directory().build();
 
 			const fullpath = path.join(process.cwd(), 'root', 'directory', '/');
 			const expected = utils.path.unixify(fullpath);
@@ -94,8 +94,8 @@ describe('Providers → Transformers → Entry', () => {
 		});
 
 		it('should do not mutate the entry when the `markDirectories` option is enabled', () => {
-			const transformer = getTransformer({ markDirectories: true });
-			const entry = tests.entry.builder().path('root/directory').directory().build();
+			const transformer = getTransformer({markDirectories: true});
+			const entry       = tests.entry.builder().path('root/directory').directory().build();
 
 			const actual = transformer(entry);
 

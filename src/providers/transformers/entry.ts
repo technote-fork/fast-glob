@@ -3,7 +3,8 @@ import { Entry, EntryItem, EntryTransformerFunction } from '../../types';
 import * as utils from '../../utils';
 
 export default class EntryTransformer {
-	constructor(private readonly _settings: Settings) { }
+	constructor(private readonly _settings: Settings) {
+	}
 
 	public getTransformer(): EntryTransformerFunction {
 		return (entry) => this._transform(entry);
@@ -27,7 +28,7 @@ export default class EntryTransformer {
 
 		return {
 			...entry,
-			path: filepath
+			path: filepath,
 		};
 	}
 }

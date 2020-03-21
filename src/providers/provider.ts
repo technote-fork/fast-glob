@@ -9,12 +9,13 @@ import ErrorFilter from './filters/error';
 import EntryTransformer from './transformers/entry';
 
 export default abstract class Provider<T> {
-	public readonly errorFilter: ErrorFilter = new ErrorFilter(this._settings);
-	public readonly entryFilter: EntryFilter = new EntryFilter(this._settings, this._getMicromatchOptions());
-	public readonly deepFilter: DeepFilter = new DeepFilter(this._settings, this._getMicromatchOptions());
+	public readonly errorFilter: ErrorFilter           = new ErrorFilter(this._settings);
+	public readonly entryFilter: EntryFilter           = new EntryFilter(this._settings, this._getMicromatchOptions());
+	public readonly deepFilter: DeepFilter             = new DeepFilter(this._settings, this._getMicromatchOptions());
 	public readonly entryTransformer: EntryTransformer = new EntryTransformer(this._settings);
 
-	constructor(protected readonly _settings: Settings) { }
+	constructor(protected readonly _settings: Settings) {
+	}
 
 	public abstract read(_task: Task): T;
 
@@ -36,7 +37,7 @@ export default abstract class Provider<T> {
 			fs: this._settings.fs,
 			stats: this._settings.stats,
 			throwErrorOnBrokenSymbolicLink: this._settings.throwErrorOnBrokenSymbolicLink,
-			transform: this.entryTransformer.getTransformer()
+			transform: this.entryTransformer.getTransformer(),
 		};
 	}
 
@@ -49,7 +50,7 @@ export default abstract class Provider<T> {
 			noext: !this._settings.extglob,
 			noglobstar: !this._settings.globstar,
 			posix: true,
-			strictSlashes: false
+			strictSlashes: false,
 		};
 	}
 }

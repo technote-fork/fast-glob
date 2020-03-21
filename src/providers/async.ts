@@ -9,7 +9,7 @@ export default class ProviderAsync extends Provider<Promise<EntryItem[]>> {
 	protected _reader: ReaderStream = new ReaderStream(this._settings);
 
 	public read(task: Task): Promise<EntryItem[]> {
-		const root = this._getRootDirectory(task);
+		const root    = this._getRootDirectory(task);
 		const options = this._getReaderOptions(task);
 
 		const entries: EntryItem[] = [];

@@ -3,11 +3,12 @@ import { Entry, EntryFilterFunction, MicromatchOptions, Pattern, PatternRe } fro
 import * as utils from '../../utils';
 
 export default class DeepFilter {
-	constructor(private readonly _settings: Settings, private readonly _micromatchOptions: MicromatchOptions) { }
+	constructor(private readonly _settings: Settings, private readonly _micromatchOptions: MicromatchOptions) {
+	}
 
 	public getFilter(basePath: string, positive: Pattern[], negative: Pattern[]): EntryFilterFunction {
 		const maxPatternDepth = this._getMaxPatternDepth(positive);
-		const negativeRe = this._getNegativePatternsRe(negative);
+		const negativeRe      = this._getNegativePatternsRe(negative);
 
 		return (entry) => this._filter(basePath, entry, negativeRe, maxPatternDepth);
 	}
@@ -43,7 +44,7 @@ export default class DeepFilter {
 	}
 
 	private _getEntryDepth(basePath: string, entryPath: string): number {
-		const basePathDepth = basePath.split('/').length;
+		const basePathDepth  = basePath.split('/').length;
 		const entryPathDepth = entryPath.split('/').length;
 
 		return entryPathDepth - (basePath === '' ? 0 : basePathDepth);

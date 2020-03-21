@@ -11,7 +11,7 @@ export const DEFAULT_FILE_SYSTEM_ADAPTER: FileSystemAdapter = {
 	stat: fs.stat,
 	statSync: fs.statSync,
 	readdir: fs.readdir,
-	readdirSync: fs.readdirSync
+	readdirSync: fs.readdirSync,
 };
 
 export type Options = {
@@ -151,27 +151,27 @@ export type Options = {
 };
 
 export default class Settings {
-	public readonly absolute: boolean = this._getValue(this._options.absolute, false);
-	public readonly baseNameMatch: boolean = this._getValue(this._options.baseNameMatch, false);
-	public readonly braceExpansion: boolean = this._getValue(this._options.braceExpansion, true);
-	public readonly caseSensitiveMatch: boolean = this._getValue(this._options.caseSensitiveMatch, true);
-	public readonly concurrency: number = this._getValue(this._options.concurrency, CPU_COUNT);
-	public readonly cwd: string = this._getValue(this._options.cwd, () => process.cwd());
-	public readonly deep: number = this._getValue(this._options.deep, Infinity);
-	public readonly dot: boolean = this._getValue(this._options.dot, false);
-	public readonly extglob: boolean = this._getValue(this._options.extglob, true);
-	public readonly followSymbolicLinks: boolean = this._getValue(this._options.followSymbolicLinks, true);
-	public readonly fs: FileSystemAdapter = this._getFileSystemMethods(this._options.fs);
-	public readonly globstar: boolean = this._getValue(this._options.globstar, true);
-	public readonly ignore: Pattern[] = this._getValue(this._options.ignore, [] as Pattern[]);
-	public readonly markDirectories: boolean = this._getValue(this._options.markDirectories, false);
-	public readonly objectMode: boolean = this._getValue(this._options.objectMode, false);
-	public readonly onlyDirectories: boolean = this._getValue(this._options.onlyDirectories, false);
-	public readonly onlyFiles: boolean = this._getValue(this._options.onlyFiles, true);
-	public readonly stats: boolean = this._getValue(this._options.stats, false);
-	public readonly suppressErrors: boolean = this._getValue(this._options.suppressErrors, false);
+	public readonly absolute: boolean                       = this._getValue(this._options.absolute, false);
+	public readonly baseNameMatch: boolean                  = this._getValue(this._options.baseNameMatch, false);
+	public readonly braceExpansion: boolean                 = this._getValue(this._options.braceExpansion, true);
+	public readonly caseSensitiveMatch: boolean             = this._getValue(this._options.caseSensitiveMatch, true);
+	public readonly concurrency: number                     = this._getValue(this._options.concurrency, CPU_COUNT);
+	public readonly cwd: string                             = this._getValue(this._options.cwd, () => process.cwd());
+	public readonly deep: number                            = this._getValue(this._options.deep, Infinity);
+	public readonly dot: boolean                            = this._getValue(this._options.dot, false);
+	public readonly extglob: boolean                        = this._getValue(this._options.extglob, true);
+	public readonly followSymbolicLinks: boolean            = this._getValue(this._options.followSymbolicLinks, true);
+	public readonly fs: FileSystemAdapter                   = this._getFileSystemMethods(this._options.fs);
+	public readonly globstar: boolean                       = this._getValue(this._options.globstar, true);
+	public readonly ignore: Pattern[]                       = this._getValue(this._options.ignore, [] as Pattern[]);
+	public readonly markDirectories: boolean                = this._getValue(this._options.markDirectories, false);
+	public readonly objectMode: boolean                     = this._getValue(this._options.objectMode, false);
+	public readonly onlyDirectories: boolean                = this._getValue(this._options.onlyDirectories, false);
+	public readonly onlyFiles: boolean                      = this._getValue(this._options.onlyFiles, true);
+	public readonly stats: boolean                          = this._getValue(this._options.stats, false);
+	public readonly suppressErrors: boolean                 = this._getValue(this._options.suppressErrors, false);
 	public readonly throwErrorOnBrokenSymbolicLink: boolean = this._getValue(this._options.throwErrorOnBrokenSymbolicLink, false);
-	public readonly unique: boolean = this._getValue(this._options.unique, true);
+	public readonly unique: boolean                         = this._getValue(this._options.unique, true);
 
 	constructor(private readonly _options: Options = {}) {
 		if (this.onlyDirectories) {
@@ -194,7 +194,7 @@ export default class Settings {
 	private _getFileSystemMethods(methods: Partial<FileSystemAdapter> = {}): FileSystemAdapter {
 		return {
 			...DEFAULT_FILE_SYSTEM_ADAPTER,
-			...methods
+			...methods,
 		};
 	}
 }

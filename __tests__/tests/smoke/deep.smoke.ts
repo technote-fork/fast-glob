@@ -9,27 +9,27 @@ import * as smoke from './smoke';
 smoke.suite('Smoke → Deep', [
 	{
 		pattern: 'fixtures/**',
-		globOptions: { ignore: ['!fixtures/*'] },
-		fgOptions: { deep: 0 }
+		globOptions: {ignore: ['!fixtures/*']},
+		fgOptions: {deep: 0},
 	},
 	{
 		pattern: 'fixtures/**',
-		globOptions: { ignore: ['!fixtures/{*/,}*'] },
-		fgOptions: { deep: 2 }
-	}
+		globOptions: {ignore: ['!fixtures/{*/,}*']},
+		fgOptions: {deep: 2},
+	},
 ]);
 
 smoke.suite('Smoke → Deep (cwd)', [
 	{
 		pattern: '**',
 		cwd: 'fixtures',
-		globOptions: { ignore: ['!*'] },
-		fgOptions: { deep: 0 }
+		globOptions: {ignore: ['!*']},
+		fgOptions: {deep: 0},
 	},
 	{
 		pattern: '**',
 		cwd: 'fixtures',
-		globOptions: { ignore: ['!{*/,}*'] },
-		fgOptions: { deep: 2 }
-	}
+		globOptions: {ignore: ['!{*/,}*']},
+		fgOptions: {deep: 2},
+	},
 ]);

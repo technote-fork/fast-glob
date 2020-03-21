@@ -11,6 +11,25 @@ type EntryObjectModePredicate = { [TKey in keyof Pick<OptionsInternal, 'objectMo
 type EntryStatsPredicate = { [TKey in keyof Pick<OptionsInternal, 'stats'>]-?: true };
 type EntryObjectPredicate = EntryObjectModePredicate | EntryStatsPredicate;
 
+function getWorks<T>(source: PatternInternal | PatternInternal[], _Provider: new (settings: Settings) => Provider<T>, options?: OptionsInternal): T[] {
+	const patterns = ([] as PatternInternal[]).concat(source);
+	const settings = new Settings(options);
+
+	const tasks    = taskManager.generate(patterns, settings);
+	const provider = new _Provider(settings);
+
+	return tasks.map(provider.read, provider);
+}
+
+function assertPatternsInput(input: unknown): void | never {
+	const source        = ([] as unknown[]).concat(input);
+	const isValidSource = source.every((item) => utils.string.isString(item) && !utils.string.isEmpty(item));
+
+	if (!isValidSource) {
+		throw new TypeError('Patterns must be a string (non empty) or an array of strings');
+	}
+}
+
 function FastGlob(source: PatternInternal | PatternInternal[], options: OptionsInternal & EntryObjectPredicate): Promise<EntryInternal[]>;
 function FastGlob(source: PatternInternal | PatternInternal[], options?: OptionsInternal): Promise<string[]>;
 async function FastGlob(source: PatternInternal | PatternInternal[], options?: OptionsInternal): Promise<EntryItem[]> {
@@ -76,25 +95,6 @@ namespace FastGlob {
 		assertPatternsInput(source);
 
 		return utils.path.escape(source);
-	}
-}
-
-function getWorks<T>(source: PatternInternal | PatternInternal[], _Provider: new (settings: Settings) => Provider<T>, options?: OptionsInternal): T[] {
-	const patterns = ([] as PatternInternal[]).concat(source);
-	const settings = new Settings(options);
-
-	const tasks = taskManager.generate(patterns, settings);
-	const provider = new _Provider(settings);
-
-	return tasks.map(provider.read, provider);
-}
-
-function assertPatternsInput(input: unknown): void | never {
-	const source = ([] as unknown[]).concat(input);
-	const isValidSource = source.every((item) => utils.string.isString(item) && !utils.string.isEmpty(item));
-
-	if (!isValidSource) {
-		throw new TypeError('Patterns must be a string (non empty) or an array of strings');
 	}
 }
 

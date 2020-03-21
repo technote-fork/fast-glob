@@ -44,7 +44,8 @@ export type SuitePackResult = {
 };
 
 export default class Runner {
-	constructor(private readonly _basedir: string, private readonly _options: RunnerOptions) { }
+	constructor(private readonly _basedir: string, private readonly _options: RunnerOptions) {
+	}
 
 	public execNodeProcess(args: string[], options: Partial<execa.SyncOptions>): string {
 		return execa.sync('node', args, options).stdout;
@@ -58,10 +59,10 @@ export default class Runner {
 			NODE_ENV: 'production',
 			BENCHMARK_BASE_DIR: this._basedir,
 			BENCHMARK_PATTERN: this._options.pattern,
-			BENCHMARK_OPTIONS: JSON.stringify(this._options.options)
+			BENCHMARK_OPTIONS: JSON.stringify(this._options.options),
 		};
 
-		const execaOptions: execa.SyncOptions = { env: environment, extendEnv: true };
+		const execaOptions: execa.SyncOptions = {env: environment, extendEnv: true};
 
 		const stdout = this.execNodeProcess([suitePath], execaOptions);
 
@@ -78,12 +79,12 @@ export default class Runner {
 			errors: 0,
 			entries: 0,
 			retries: retries + 1,
-			measures: this._getSuitePackMeasures()
+			measures: this._getSuitePackMeasures(),
 		};
 
-		for (let i = 0; i < this._options.launches; i++) {
+		for (let idx = 0; idx < this._options.launches; idx++) {
 			try {
-				const { matches, time, memory } = this.suite(suitePath);
+				const {matches, time, memory} = this.suite(suitePath);
 
 				results.entries = matches;
 
@@ -99,7 +100,7 @@ export default class Runner {
 
 		results.measures = {
 			time: this._getMeasures(results.measures.time.raw, 'ms'),
-			memory: this._getMeasures(results.measures.memory.raw, 'MB')
+			memory: this._getMeasures(results.measures.memory.raw, 'MB'),
 		};
 
 		return results;
@@ -115,7 +116,7 @@ export default class Runner {
 
 	public packs(): void {
 		const suitesPath = path.join(__dirname, 'suites', this._options.type, this._options.mode);
-		const suites = this.getSuites(suitesPath);
+		const suites     = this.getSuites(suitesPath);
 
 		for (const filepath of suites) {
 			const suitePath = path.join(suitesPath, filepath);
@@ -139,14 +140,14 @@ export default class Runner {
 			units,
 			raw,
 			average: utils.getAverageValue(raw),
-			stdev: utils.getStdev(raw)
+			stdev: utils.getStdev(raw),
 		};
 	}
 
 	private _getSuitePackMeasures(): SuitePackMeasures {
 		return {
 			time: this._getMeasures([], 'ms'),
-			memory: this._getMeasures([], 'MB')
+			memory: this._getMeasures([], 'MB'),
 		};
 	}
 }

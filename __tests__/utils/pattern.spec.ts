@@ -112,23 +112,23 @@ describe('Utils → Pattern', () => {
 
 		describe('With options', () => {
 			it('should return true for patterns that include "*?" symbols even when the "extglob" option is disabled', () => {
-				assert.ok(util.isDynamicPattern('*(a|b)', { extglob: false }));
-				assert.ok(util.isDynamicPattern('?(a|b)', { extglob: false }));
+				assert.ok(util.isDynamicPattern('*(a|b)', {extglob: false}));
+				assert.ok(util.isDynamicPattern('?(a|b)', {extglob: false}));
 			});
 
 			it('should return true when the "caseSensitiveMatch" option is enabled', () => {
-				assert.ok(util.isDynamicPattern('a', { caseSensitiveMatch: false }));
+				assert.ok(util.isDynamicPattern('a', {caseSensitiveMatch: false}));
 			});
 
 			it('should return false for glob extension when the "extglob" option is disabled', () => {
-				assert.ok(!util.isDynamicPattern('@(a|b)', { extglob: false }));
-				assert.ok(!util.isDynamicPattern('abc/!(a|b)', { extglob: false }));
-				assert.ok(!util.isDynamicPattern('+(a|b)', { extglob: false }));
+				assert.ok(!util.isDynamicPattern('@(a|b)', {extglob: false}));
+				assert.ok(!util.isDynamicPattern('abc/!(a|b)', {extglob: false}));
+				assert.ok(!util.isDynamicPattern('+(a|b)', {extglob: false}));
 			});
 
 			it('should return false for brace expansions when the "braceExpansion" option is disabled', () => {
-				assert.ok(!util.isDynamicPattern('{a,b}', { braceExpansion: false }));
-				assert.ok(!util.isDynamicPattern('{1..3}', { braceExpansion: false }));
+				assert.ok(!util.isDynamicPattern('{a,b}', {braceExpansion: false}));
+				assert.ok(!util.isDynamicPattern('{1..3}', {braceExpansion: false}));
 			});
 		});
 	});

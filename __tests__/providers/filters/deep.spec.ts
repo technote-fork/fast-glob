@@ -9,7 +9,7 @@ function getDeepFilterInstance(options?: Options): DeepFilter {
 	const settings = new Settings(options);
 
 	return new DeepFilter(settings, {
-		dot: settings.dot
+		dot: settings.dot,
 	});
 }
 
@@ -29,8 +29,8 @@ describe('Providers → Filters → Deep', () => {
 	describe('.getFilter', () => {
 		describe('options.deep', () => {
 			it('should return `false` when option has 0 as value', () => {
-				const filter = getFilter('.', ['**/*'], [], { deep: 0 });
-				const entry = tests.entry.builder().path('root/directory').directory().build();
+				const filter = getFilter('.', ['**/*'], [], {deep: 0});
+				const entry  = tests.entry.builder().path('root/directory').directory().build();
 
 				const actual = filter(entry);
 
@@ -38,8 +38,8 @@ describe('Providers → Filters → Deep', () => {
 			});
 
 			it('should return `false` when the depth of entry is greater than the allowable (without base)', () => {
-				const filter = getFilter('', ['**/*'], [], { deep: 1 });
-				const entry = tests.entry.builder().path('root/one/two').directory().build();
+				const filter = getFilter('', ['**/*'], [], {deep: 1});
+				const entry  = tests.entry.builder().path('root/one/two').directory().build();
 
 				const actual = filter(entry);
 
@@ -47,8 +47,8 @@ describe('Providers → Filters → Deep', () => {
 			});
 
 			it('should return `false` when the depth of entry is greater than the allowable (with base as current level)', () => {
-				const filter = getFilter('.', ['**/*'], [], { deep: 1 });
-				const entry = tests.entry.builder().path('root/one/two').directory().build();
+				const filter = getFilter('.', ['**/*'], [], {deep: 1});
+				const entry  = tests.entry.builder().path('root/one/two').directory().build();
 
 				const actual = filter(entry);
 
@@ -56,8 +56,8 @@ describe('Providers → Filters → Deep', () => {
 			});
 
 			it('should return `false` when the depth of entry is greater than the allowable (with nested base)', () => {
-				const filter = getFilter('root/one', ['root/one/**/*'], [], { deep: 1 });
-				const entry = tests.entry.builder().path('root/one/two').directory().build();
+				const filter = getFilter('root/one', ['root/one/**/*'], [], {deep: 1});
+				const entry  = tests.entry.builder().path('root/one/two').directory().build();
 
 				const actual = filter(entry);
 
@@ -68,7 +68,7 @@ describe('Providers → Filters → Deep', () => {
 		describe('Max pattern depth', () => {
 			it('should return `false` when the depth of entry is greater that the pattern depth', () => {
 				const filter = getFilter('root', ['root/*'], []);
-				const entry = tests.entry.builder().path('root/directory').directory().build();
+				const entry  = tests.entry.builder().path('root/directory').directory().build();
 
 				const actual = filter(entry);
 
@@ -78,8 +78,8 @@ describe('Providers → Filters → Deep', () => {
 
 		describe('options.followSymbolicLinks', () => {
 			it('should return `false` when an entry is symbolic link and option is disabled', () => {
-				const filter = getFilter('.', ['**/*'], [], { followSymbolicLinks: false });
-				const entry = tests.entry.builder().path('root/directory').directory().symlink().build();
+				const filter = getFilter('.', ['**/*'], [], {followSymbolicLinks: false});
+				const entry  = tests.entry.builder().path('root/directory').directory().symlink().build();
 
 				const actual = filter(entry);
 
@@ -90,7 +90,7 @@ describe('Providers → Filters → Deep', () => {
 		describe('Pattern', () => {
 			it('should return `false` when an entry match to the negative pattern', () => {
 				const filter = getFilter('.', ['**/*'], ['root/**']);
-				const entry = tests.entry.builder().path('root/directory').directory().build();
+				const entry  = tests.entry.builder().path('root/directory').directory().build();
 
 				const actual = filter(entry);
 
@@ -98,8 +98,8 @@ describe('Providers → Filters → Deep', () => {
 			});
 
 			it('should return `true` when the positive pattern has no affect to depth reading, but the `baseNameMatch` is enabled', () => {
-				const filter = getFilter('.', ['*'], [], { baseNameMatch: true });
-				const entry = tests.entry.builder().path('root/directory').directory().build();
+				const filter = getFilter('.', ['*'], [], {baseNameMatch: true});
+				const entry  = tests.entry.builder().path('root/directory').directory().build();
 
 				const actual = filter(entry);
 
@@ -108,7 +108,7 @@ describe('Providers → Filters → Deep', () => {
 
 			it('should return `true` when the negative pattern has no effect to depth reading', () => {
 				const filter = getFilter('.', ['**/*'], ['**/*']);
-				const entry = tests.entry.builder().path('root/directory').directory().build();
+				const entry  = tests.entry.builder().path('root/directory').directory().build();
 
 				const actual = filter(entry);
 
@@ -117,7 +117,7 @@ describe('Providers → Filters → Deep', () => {
 
 			it('should return `true`', () => {
 				const filter = getFilter('.', ['**/*'], []);
-				const entry = tests.entry.builder().path('root/directory').directory().build();
+				const entry  = tests.entry.builder().path('root/directory').directory().build();
 
 				const actual = filter(entry);
 
@@ -131,7 +131,7 @@ describe('Providers → Filters → Deep', () => {
 			const filter = getFilter('.', ['**/*'], []);
 
 			const reference = tests.entry.builder().path('root/directory').directory().build();
-			const entry = tests.entry.builder().path('root/directory').directory().build();
+			const entry     = tests.entry.builder().path('root/directory').directory().build();
 
 			filter(entry);
 

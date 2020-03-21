@@ -35,7 +35,7 @@ function getReader(options?: Options): TestReader {
 }
 
 function getReaderOptions(options: Partial<ReaderOptions> = {}): ReaderOptions {
-	return { ...options } as unknown as ReaderOptions;
+	return {...options} as unknown as ReaderOptions;
 }
 
 describe('Readers → ReaderSync', () => {
@@ -49,7 +49,7 @@ describe('Readers → ReaderSync', () => {
 
 	describe('.dynamic', () => {
 		it('should call fs.walk method', () => {
-			const reader = getReader();
+			const reader        = getReader();
 			const readerOptions = getReaderOptions();
 
 			reader.dynamic('root', readerOptions);
@@ -60,8 +60,8 @@ describe('Readers → ReaderSync', () => {
 
 	describe('.static', () => {
 		it('should return entries', () => {
-			const reader = getReader();
-			const readerOptions = getReaderOptions({ entryFilter: () => true });
+			const reader        = getReader();
+			const readerOptions = getReaderOptions({entryFilter: () => true});
 
 			reader.statSync.onFirstCall().returns(new Stats());
 			reader.statSync.onSecondCall().returns(new Stats());
@@ -73,10 +73,10 @@ describe('Readers → ReaderSync', () => {
 		});
 
 		it('should throw an error when the filter does not suppress the error', () => {
-			const reader = getReader();
+			const reader        = getReader();
 			const readerOptions = getReaderOptions({
 				errorFilter: () => false,
-				entryFilter: () => true
+				entryFilter: () => true,
 			});
 
 			reader.statSync.onFirstCall().throws(tests.errno.getEperm());
@@ -88,10 +88,10 @@ describe('Readers → ReaderSync', () => {
 		});
 
 		it('should do not throw an error when the filter suppress the error', () => {
-			const reader = getReader();
+			const reader        = getReader();
 			const readerOptions = getReaderOptions({
 				errorFilter: () => true,
-				entryFilter: () => true
+				entryFilter: () => true,
 			});
 
 			reader.statSync.onFirstCall().throws(tests.errno.getEnoent());
@@ -104,8 +104,8 @@ describe('Readers → ReaderSync', () => {
 		});
 
 		it('should do not include entry when the filter excludes it', () => {
-			const reader = getReader();
-			const readerOptions = getReaderOptions({ entryFilter: () => false });
+			const reader        = getReader();
+			const readerOptions = getReaderOptions({entryFilter: () => false});
 
 			reader.statSync.returns(new Stats());
 

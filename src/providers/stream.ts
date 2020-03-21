@@ -9,11 +9,14 @@ export default class ProviderStream extends Provider<Readable> {
 	protected _reader: ReaderStream = new ReaderStream(this._settings);
 
 	public read(task: Task): Readable {
-		const root = this._getRootDirectory(task);
+		const root    = this._getRootDirectory(task);
 		const options = this._getReaderOptions(task);
 
-		const source = this.api(root, task, options);
-		const destination = new Readable({ objectMode: true, read: () => { /* noop */ } });
+		const source      = this.api(root, task, options);
+		const destination = new Readable({
+			objectMode: true, read: () => { /* noop */
+			},
+		});
 
 		source
 			.once('error', (error: ErrnoException) => destination.emit('error', error))

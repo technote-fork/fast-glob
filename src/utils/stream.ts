@@ -2,6 +2,10 @@ import { Readable } from 'stream';
 
 import * as merge2 from 'merge2';
 
+function propagateCloseEventToSources(streams: Readable[]): void {
+	streams.forEach((stream) => stream.emit('close'));
+}
+
 export function merge(streams: Readable[]): NodeJS.ReadableStream {
 	const mergedStream = merge2(streams);
 
@@ -13,8 +17,4 @@ export function merge(streams: Readable[]): NodeJS.ReadableStream {
 	mergedStream.once('end', () => propagateCloseEventToSources(streams));
 
 	return mergedStream;
-}
-
-function propagateCloseEventToSources(streams: Readable[]): void {
-	streams.forEach((stream) => stream.emit('close'));
 }

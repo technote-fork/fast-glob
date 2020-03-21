@@ -9,7 +9,7 @@ import Reader from './reader';
 
 export default class ReaderStream extends Reader<Readable> {
 	protected _walkStream: typeof fsWalk.walkStream = fsWalk.walkStream;
-	protected _stat: typeof fsStat.stat = fsStat.stat;
+	protected _stat: typeof fsStat.stat             = fsStat.stat;
 
 	public dynamic(root: string, options: ReaderOptions): Readable {
 		return this._walkStream(root, options);
@@ -18,7 +18,7 @@ export default class ReaderStream extends Reader<Readable> {
 	public static(patterns: Pattern[], options: ReaderOptions): Readable {
 		const filepaths = patterns.map(this._getFullEntryPath, this);
 
-		const stream = new PassThrough({ objectMode: true });
+		const stream = new PassThrough({objectMode: true});
 
 		stream._write = (index: number, _enc, done) => {
 			return this._getEntry(filepaths[index], patterns[index], options)
@@ -36,8 +36,8 @@ export default class ReaderStream extends Reader<Readable> {
 				.catch(done);
 		};
 
-		for (let i = 0; i < filepaths.length; i++) {
-			stream.write(i);
+		for (let idx = 0; idx < filepaths.length; idx++) {
+			stream.write(idx);
 		}
 
 		return stream;

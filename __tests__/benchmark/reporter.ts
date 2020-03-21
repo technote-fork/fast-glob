@@ -3,7 +3,8 @@ import { SuitePackResult, SuitePackMeasures } from './runner';
 const FRACTION_DIGITS = 3;
 
 export default class Reporter {
-	constructor(private readonly _results: SuitePackResult) { }
+	constructor(private readonly _results: SuitePackResult) {
+	}
 
 	public toString(): string {
 		return this._formatHeader() + '\n' + this._formatMeasures() + ' | ' + this._formatMeta();
@@ -15,7 +16,7 @@ export default class Reporter {
 
 	private _formatMeta(): string {
 		const matches = 'Entries: ' + this._formatValue(this._results.entries, '');
-		const errors = 'Errors: ' + this._formatValue(this._results.errors, '');
+		const errors  = 'Errors: ' + this._formatValue(this._results.errors, '');
 		const retries = 'Retries: ' + this._formatValue(this._results.retries, '');
 
 		return [matches, errors, retries].join(' | ');
@@ -33,7 +34,7 @@ export default class Reporter {
 		return [
 			'(' + name.toUpperCase() + ')',
 			this._formatValue(data.average, data.units, FRACTION_DIGITS),
-			'±' + this._formatValue(data.stdev, '%', FRACTION_DIGITS)
+			'±' + this._formatValue(data.stdev, '%', FRACTION_DIGITS),
 		].join(' ');
 	}
 

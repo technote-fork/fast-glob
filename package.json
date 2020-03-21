@@ -76,7 +76,7 @@
   "scripts": {
     "clean": "rimraf out",
     "test": "yarn lint && yarn cover",
-    "lint": "eslint 'src/**/*.ts' --cache",
+    "lint": "eslint 'src/**/*.ts' '__tests__/**/*.ts' --cache",
     "cover": "nyc mocha '__tests__/**/*.spec.ts'",
     "compile": "tsc",
     "smoke": "mocha '__tests__/**/*.smoke.ts'",

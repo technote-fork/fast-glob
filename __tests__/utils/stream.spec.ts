@@ -6,7 +6,7 @@ import * as util from '../../src/utils/stream';
 describe('Utils → Stream', () => {
 	describe('.merge', () => {
 		it('should merge two streams into one stream', () => {
-			const first = new stream.PassThrough();
+			const first  = new stream.PassThrough();
 			const second = new stream.PassThrough();
 
 			const expected = 3;
@@ -19,7 +19,7 @@ describe('Utils → Stream', () => {
 		});
 
 		it('should propagate errors into merged stream', (done) => {
-			const first = new stream.PassThrough();
+			const first  = new stream.PassThrough();
 			const second = new stream.PassThrough();
 
 			const expected = [1, 2, 3];
@@ -42,7 +42,7 @@ describe('Utils → Stream', () => {
 		});
 
 		it('should propagate close event to source streams', (done) => {
-			const first = new stream.PassThrough();
+			const first  = new stream.PassThrough();
 			const second = new stream.PassThrough();
 
 			const mergedStream = util.merge([first, second]);

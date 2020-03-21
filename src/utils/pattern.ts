@@ -5,24 +5,20 @@ import * as micromatch from 'micromatch';
 
 import { MicromatchOptions, Pattern, PatternRe } from '../types';
 
-const GLOBSTAR = '**';
+const GLOBSTAR      = '**';
 const ESCAPE_SYMBOL = '\\';
 
-const COMMON_GLOB_SYMBOLS_RE = /[*?]|^!/;
+const COMMON_GLOB_SYMBOLS_RE           = /[*?]|^!/;
 const REGEX_CHARACTER_CLASS_SYMBOLS_RE = /\[.*]/;
-const REGEX_GROUP_SYMBOLS_RE = /(?:^|[^!*+?@])\(.*\|.*\)/;
-const GLOB_EXTENSION_SYMBOLS_RE = /[!*+?@]\(.*\)/;
-const BRACE_EXPANSIONS_SYMBOLS_RE = /{.*(?:,|\.\.).*}/;
+const REGEX_GROUP_SYMBOLS_RE           = /(?:^|[^!*+?@])\(.*\|.*\)/;
+const GLOB_EXTENSION_SYMBOLS_RE        = /[!*+?@]\(.*\)/;
+const BRACE_EXPANSIONS_SYMBOLS_RE      = /{.*(?:,|\.\.).*}/;
 
 type PatternTypeOptions = {
 	braceExpansion?: boolean;
 	caseSensitiveMatch?: boolean;
 	extglob?: boolean;
 };
-
-export function isStaticPattern(pattern: Pattern, options: PatternTypeOptions = {}): boolean {
-	return !isDynamicPattern(pattern, options);
-}
 
 export function isDynamicPattern(pattern: Pattern, options: PatternTypeOptions = {}): boolean {
 	/**
@@ -48,16 +44,20 @@ export function isDynamicPattern(pattern: Pattern, options: PatternTypeOptions =
 	return false;
 }
 
+export function isStaticPattern(pattern: Pattern, options: PatternTypeOptions = {}): boolean {
+	return !isDynamicPattern(pattern, options);
+}
+
+export function isNegativePattern(pattern: Pattern): boolean {
+	return pattern.startsWith('!') && pattern[1] !== '(';
+}
+
 export function convertToPositivePattern(pattern: Pattern): Pattern {
 	return isNegativePattern(pattern) ? pattern.slice(1) : pattern;
 }
 
 export function convertToNegativePattern(pattern: Pattern): Pattern {
 	return '!' + pattern;
-}
-
-export function isNegativePattern(pattern: Pattern): boolean {
-	return pattern.startsWith('!') && pattern[1] !== '(';
 }
 
 export function isPositivePattern(pattern: Pattern): boolean {
@@ -73,7 +73,7 @@ export function getPositivePatterns(patterns: Pattern[]): Pattern[] {
 }
 
 export function getBaseDirectory(pattern: Pattern): string {
-	return globParent(pattern, { flipBackslashes: false });
+	return globParent(pattern, {flipBackslashes: false});
 }
 
 export function hasGlobStar(pattern: Pattern): boolean {
@@ -93,7 +93,7 @@ export function isAffectDepthOfReadingPattern(pattern: Pattern): boolean {
 export function getNaiveDepth(pattern: Pattern): number {
 	const base = getBaseDirectory(pattern);
 
-	const patternDepth = pattern.split('/').length;
+	const patternDepth     = pattern.split('/').length;
 	const patternBaseDepth = base.split('/').length;
 
 	/**

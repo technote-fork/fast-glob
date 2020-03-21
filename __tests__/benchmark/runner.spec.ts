@@ -34,7 +34,7 @@ describe('Benchmark → Runner', () => {
 		launches: 3,
 		maxStdev: 3,
 		retries: 5,
-		options: {}
+		options: {},
 	};
 
 	describe('.suite', () => {
@@ -44,7 +44,7 @@ describe('Benchmark → Runner', () => {
 			const expected: SuiteMeasures = {
 				matches: 1,
 				time: 1,
-				memory: 1
+				memory: 1,
 			};
 
 			const actual = runner.suite('suitePath');
@@ -69,9 +69,9 @@ describe('Benchmark → Runner', () => {
 				retries: 1,
 				entries: 1,
 				measures: {
-					time: { raw: [1, 1, 1], average: 1, stdev: 0, units: 'ms' },
-					memory: { raw: [1, 1, 1], average: 1, stdev: 0, units: 'MB' }
-				}
+					time: {raw: [1, 1, 1], average: 1, stdev: 0, units: 'ms'},
+					memory: {raw: [1, 1, 1], average: 1, stdev: 0, units: 'MB'},
+				},
 			};
 
 			const actual = runner.suitePack('suitePath', 0);
@@ -88,9 +88,9 @@ describe('Benchmark → Runner', () => {
 				retries: 1,
 				entries: 0,
 				measures: {
-					time: { raw: [0, 0, 0], average: 0, stdev: 0, units: 'ms' },
-					memory: { raw: [0, 0, 0], average: 0, stdev: 0, units: 'MB' }
-				}
+					time: {raw: [0, 0, 0], average: 0, stdev: 0, units: 'ms'},
+					memory: {raw: [0, 0, 0], average: 0, stdev: 0, units: 'MB'},
+				},
 			};
 
 			const actual = runner.suitePack('suitePath', 0);
@@ -103,16 +103,18 @@ describe('Benchmark → Runner', () => {
 		it('should run pack of suites', () => {
 			const runner = new RunnerFakeReport('basedir', runnerOptions);
 
-			const expected = [{
-				name: 'suite.js',
-				errors: 0,
-				entries: 1,
-				retries: 1,
-				measures: {
-					time: { raw: [1, 1, 1], average: 1, stdev: 0, units: 'ms' },
-					memory: { raw: [1, 1, 1], average: 1, stdev: 0, units: 'MB' }
-				}
-			}];
+			const expected = [
+				{
+					name: 'suite.js',
+					errors: 0,
+					entries: 1,
+					retries: 1,
+					measures: {
+						time: {raw: [1, 1, 1], average: 1, stdev: 0, units: 'ms'},
+						memory: {raw: [1, 1, 1], average: 1, stdev: 0, units: 'MB'},
+					},
+				},
+			];
 
 			runner.packs();
 

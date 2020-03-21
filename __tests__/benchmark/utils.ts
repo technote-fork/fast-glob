@@ -2,9 +2,9 @@ import { SuiteMeasures } from './runner';
 
 import stdev = require('compute-stdev'); // eslint-disable-line @typescript-eslint/no-require-imports
 
-const NANOSECONDS_IN_SECOND = 1e9;
+const NANOSECONDS_IN_SECOND  = 1e9;
 const MICROSECONDS_IN_SECOND = 1e6;
-const BYTES_IN_MEGABYTE = 1e6;
+const BYTES_IN_MEGABYTE      = 1e6;
 
 export function convertHrtimeToMilliseconds(hrtime: [number, number]): number {
 	const nanoseconds = hrtime[0] * NANOSECONDS_IN_SECOND;
@@ -31,13 +31,13 @@ export function getMemory(): number {
 }
 
 export function formatMeasures(matches: number, time: number, memory: number): string {
-	const measures: SuiteMeasures = { matches, time, memory };
+	const measures: SuiteMeasures = {matches, time, memory};
 
 	return JSON.stringify(measures);
 }
 
 export function getAverageValue(values: number[]): number {
-	return values.reduce((a, b) => a + b, 0) / values.length;
+	return values.reduce((val1, val2) => val1 + val2, 0) / values.length;
 }
 
 export function getStdev(values: number[]): number {
