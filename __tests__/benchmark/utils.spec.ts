@@ -1,5 +1,4 @@
 import * as assert from 'assert';
-
 import * as utils from './utils';
 
 describe('Benchmark → Utils', () => {
@@ -11,7 +10,8 @@ describe('Benchmark → Utils', () => {
 		process.env.FG_TEST_ENV_OBJECT  = '{ "value": true }';
 
 		process.hrtime      = (() => [0, 1e7]) as NodeJS.HRTime;
-		process.memoryUsage = (): Buffer.MemoryUsage => ({external: 0, rss: 0, heapTotal: 0, heapUsed: 10 * 1e6, arrayBuffers: 0});
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		process.memoryUsage = (): any => ({external: 0, rss: 0, heapTotal: 0, heapUsed: 10 * 1e6, arrayBuffers: 0});
 	});
 
 	after(() => {
