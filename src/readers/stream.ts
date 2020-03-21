@@ -20,7 +20,7 @@ export default class ReaderStream extends Reader<Readable> {
 
 		const stream = new PassThrough({objectMode: true});
 
-		stream._write = (index: number, _enc, done) => {
+		stream._write = (index: number, _enc, done): Promise<void> => {
 			return this._getEntry(filepaths[index], patterns[index], options)
 				.then((entry) => {
 					if (entry !== null && options.entryFilter(entry)) {

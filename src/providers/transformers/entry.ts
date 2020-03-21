@@ -7,7 +7,7 @@ export default class EntryTransformer {
 	}
 
 	public getTransformer(): EntryTransformerFunction {
-		return (entry) => this._transform(entry);
+		return (entry): EntryItem => this._transform(entry);
 	}
 
 	private _transform(entry: Entry): EntryItem {

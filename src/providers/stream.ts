@@ -14,7 +14,7 @@ export default class ProviderStream extends Provider<Readable> {
 
 		const source      = this.api(root, task, options);
 		const destination = new Readable({
-			objectMode: true, read: () => { /* noop */
+			objectMode: true, read: (): void => { /* noop */
 			},
 		});
 

@@ -7,7 +7,7 @@ export default class ErrorFilter {
 	}
 
 	public getFilter(): ErrorFilterFunction {
-		return (error) => this._isNonFatalError(error);
+		return (error): boolean => this._isNonFatalError(error);
 	}
 
 	private _isNonFatalError(error: ErrnoException): boolean {

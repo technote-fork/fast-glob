@@ -11,7 +11,7 @@ describe('Benchmark → Utils', () => {
 		process.env.FG_TEST_ENV_OBJECT  = '{ "value": true }';
 
 		process.hrtime      = (() => [0, 1e7]) as NodeJS.HRTime;
-		process.memoryUsage = () => ({external: 0, rss: 0, heapTotal: 0, heapUsed: 10 * 1e6, arrayBuffers: 0});
+		process.memoryUsage = (): Buffer.MemoryUsage => ({external: 0, rss: 0, heapTotal: 0, heapUsed: 10 * 1e6, arrayBuffers: 0});
 	});
 
 	after(() => {

@@ -96,11 +96,6 @@ export function getNaiveDepth(pattern: Pattern): number {
 	const patternDepth     = pattern.split('/').length;
 	const patternBaseDepth = base.split('/').length;
 
-	/**
-	 * This is a hack for pattern that has no base directory.
-	 *
-	 * This is related to the `*\something\*` pattern.
-	 */
 	if (base === '.') {
 		return patternDepth - patternBaseDepth;
 	}

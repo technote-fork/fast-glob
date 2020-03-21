@@ -7,7 +7,7 @@ describe('Settings', () => {
 	it('should return instance with default values', () => {
 		const saveCwd = process.cwd;
 		let called    = 0;
-		process.cwd   = () => String(++called);
+		process.cwd   = (): string => String(++called);
 
 		const settings = new Settings();
 
@@ -40,7 +40,7 @@ describe('Settings', () => {
 	it('should return instance with custom values', () => {
 		const saveCwd = process.cwd;
 		let called    = 0;
-		process.cwd   = () => String(++called);
+		process.cwd   = (): string => String(++called);
 
 		const settings = new Settings({
 			onlyFiles: false,
