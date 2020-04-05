@@ -1,6 +1,6 @@
 {
   "name": "@technote-space/fast-glob",
-  "version": "3.1.8",
+  "version": "3.1.9",
   "description": "It's a very fast and efficient glob library for Node.js",
   "author": {
     "name": "Denis Malinochkin",
@@ -51,7 +51,7 @@
     "@types/micromatch": "^4.0.1",
     "@types/minimist": "^1.2.0",
     "@types/mocha": "^7.0.2",
-    "@types/node": "^13.9.3",
+    "@types/node": "^13.9.8",
     "@types/rimraf": "^3.0.0",
     "@types/sinon": "^7.5.2",
     "compute-stdev": "^1.0.0",
