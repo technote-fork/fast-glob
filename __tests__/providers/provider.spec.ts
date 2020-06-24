@@ -7,8 +7,10 @@ import * as tests from '../tests';
 import {MicromatchOptions, ReaderOptions} from '../../src/types';
 import Provider from '../../src/providers/provider';
 
-export class TestProvider extends Provider<Array<{}>> {
-  public read(): Array<{}> {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export class TestProvider extends Provider<Array<any>> {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  public read(): Array<any> {
     return [];
   }
 

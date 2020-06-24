@@ -56,8 +56,10 @@ export function getEnvironmentAsInteger(name: string, value: number): number {
   return environment === undefined ? value : parseInt(environment, 10);
 }
 
-export function getEnvironmentAsObject(name: string, value: object): object {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function getEnvironmentAsObject(name: string, value: any): any {
   const environment = process.env[name];
 
-  return environment === undefined ? value : JSON.parse(environment) as object;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  return environment === undefined ? value : JSON.parse(environment) as any;
 }
