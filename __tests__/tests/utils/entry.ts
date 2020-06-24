@@ -1,65 +1,65 @@
 import * as path from 'path';
 
-import { Dirent, Stats } from '@nodelib/fs.macchiato';
+import {Dirent, Stats} from '@nodelib/fs.macchiato';
 
-import { Entry } from '../../../src/types';
+import {Entry} from '../../../src/types';
 
 class EntryBuilder {
-	private _isFile         = true;
-	private _isDirectory    = false;
-	private _isSymbolicLink = false;
+  private _isFile         = true;
+  private _isDirectory    = false;
+  private _isSymbolicLink = false;
 
-	private readonly _entry: Entry = {
-		name: '',
-		path: '',
-		dirent: new Dirent(),
-	};
+  private readonly _entry: Entry = {
+    name: '',
+    path: '',
+    dirent: new Dirent(),
+  };
 
-	public path(filepath: string): this {
-		this._entry.name = path.basename(filepath);
-		this._entry.path = filepath;
+  public path(filepath: string): this {
+    this._entry.name = path.basename(filepath);
+    this._entry.path = filepath;
 
-		return this;
-	}
+    return this;
+  }
 
-	public file(): this {
-		this._isFile      = true;
-		this._isDirectory = false;
+  public file(): this {
+    this._isFile      = true;
+    this._isDirectory = false;
 
-		return this;
-	}
+    return this;
+  }
 
-	public directory(): this {
-		this._isDirectory = true;
-		this._isFile      = false;
+  public directory(): this {
+    this._isDirectory = true;
+    this._isFile      = false;
 
-		return this;
-	}
+    return this;
+  }
 
-	public symlink(): this {
-		this._isSymbolicLink = true;
+  public symlink(): this {
+    this._isSymbolicLink = true;
 
-		return this;
-	}
+    return this;
+  }
 
-	public stats(): this {
-		this._entry.stats = new Stats();
+  public stats(): this {
+    this._entry.stats = new Stats();
 
-		return this;
-	}
+    return this;
+  }
 
-	public build(): Entry {
-		this._entry.dirent = new Dirent({
-			name: this._entry.name,
-			isFile: this._isFile,
-			isDirectory: this._isDirectory,
-			isSymbolicLink: this._isSymbolicLink,
-		});
+  public build(): Entry {
+    this._entry.dirent = new Dirent({
+      name: this._entry.name,
+      isFile: this._isFile,
+      isDirectory: this._isDirectory,
+      isSymbolicLink: this._isSymbolicLink,
+    });
 
-		return this._entry;
-	}
+    return this._entry;
+  }
 }
 
 export function builder(): EntryBuilder {
-	return new EntryBuilder();
+  return new EntryBuilder();
 }

@@ -4,63 +4,63 @@ import * as stream from 'stream';
 import * as util from '../../src/utils/stream';
 
 describe('Utils → Stream', () => {
-	describe('.merge', () => {
-		it('should merge two streams into one stream', () => {
-			const first  = new stream.PassThrough();
-			const second = new stream.PassThrough();
+  describe('.merge', () => {
+    it('should merge two streams into one stream', () => {
+      const first  = new stream.PassThrough();
+      const second = new stream.PassThrough();
 
-			const expected = 3;
+      const expected = 3;
 
-			const mergedStream = util.merge([first, second]);
+      const mergedStream = util.merge([first, second]);
 
-			const actual = mergedStream.listenerCount('close');
+      const actual = mergedStream.listenerCount('close');
 
-			assert.strictEqual(actual, expected);
-		});
+      assert.strictEqual(actual, expected);
+    });
 
-		it('should propagate errors into merged stream', (done) => {
-			const first  = new stream.PassThrough();
-			const second = new stream.PassThrough();
+    it('should propagate errors into merged stream', (done) => {
+      const first  = new stream.PassThrough();
+      const second = new stream.PassThrough();
 
-			const expected = [1, 2, 3];
+      const expected = [1, 2, 3];
 
-			const mergedStream = util.merge([first, second]);
+      const mergedStream = util.merge([first, second]);
 
-			const actual: number[] = [];
+      const actual: number[] = [];
 
-			mergedStream.on('error', (error: number) => actual.push(error));
+      mergedStream.on('error', (error: number) => actual.push(error));
 
-			mergedStream.once('finish', () => {
-				assert.deepStrictEqual(actual, expected);
+      mergedStream.once('finish', () => {
+        assert.deepStrictEqual(actual, expected);
 
-				done();
-			});
+        done();
+      });
 
-			first.emit('error', 1);
-			second.emit('error', 2);
-			mergedStream.emit('error', 3);
-		});
+      first.emit('error', 1);
+      second.emit('error', 2);
+      mergedStream.emit('error', 3);
+    });
 
-		it('should propagate close event to source streams', (done) => {
-			const first  = new stream.PassThrough();
-			const second = new stream.PassThrough();
+    it('should propagate close event to source streams', (done) => {
+      const first  = new stream.PassThrough();
+      const second = new stream.PassThrough();
 
-			const mergedStream = util.merge([first, second]);
+      const mergedStream = util.merge([first, second]);
 
-			const expected = [1, 2];
+      const expected = [1, 2];
 
-			const actual: number[] = [];
+      const actual: number[] = [];
 
-			first.once('close', () => actual.push(1));
-			second.once('close', () => actual.push(2));
+      first.once('close', () => actual.push(1));
+      second.once('close', () => actual.push(2));
 
-			mergedStream.once('finish', () => {
-				assert.deepStrictEqual(actual, expected);
+      mergedStream.once('finish', () => {
+        assert.deepStrictEqual(actual, expected);
 
-				done();
-			});
+        done();
+      });
 
-			mergedStream.emit('close');
-		});
-	});
+      mergedStream.emit('close');
+    });
+  });
 });

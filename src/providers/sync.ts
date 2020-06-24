@@ -1,25 +1,25 @@
-import { Task } from '../managers/tasks';
+import {Task} from '../managers/tasks';
 import ReaderSync from '../readers/sync';
-import { Entry, EntryItem, ReaderOptions } from '../types';
+import {Entry, EntryItem, ReaderOptions} from '../types';
 import Provider from './provider';
 
 export default class ProviderSync extends Provider<EntryItem[]> {
-	protected _reader: ReaderSync = new ReaderSync(this._settings);
+  protected _reader: ReaderSync = new ReaderSync(this._settings);
 
-	public read(task: Task): EntryItem[] {
-		const root    = this._getRootDirectory(task);
-		const options = this._getReaderOptions(task);
+  public read(task: Task): EntryItem[] {
+    const root    = this._getRootDirectory(task);
+    const options = this._getReaderOptions(task);
 
-		const entries = this.api(root, task, options);
+    const entries = this.api(root, task, options);
 
-		return entries.map(options.transform);
-	}
+    return entries.map(options.transform);
+  }
 
-	public api(root: string, task: Task, options: ReaderOptions): Entry[] {
-		if (task.dynamic) {
-			return this._reader.dynamic(root, options);
-		}
+  public api(root: string, task: Task, options: ReaderOptions): Entry[] {
+    if (task.dynamic) {
+      return this._reader.dynamic(root, options);
+    }
 
-		return this._reader.static(task.patterns, options);
-	}
+    return this._reader.static(task.patterns, options);
+  }
 }

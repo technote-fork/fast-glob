@@ -3,7 +3,7 @@ import * as errno from './utils/errno';
 import * as task from './utils/task';
 
 export {
-	entry,
-	errno,
-	task,
+  entry,
+  errno,
+  task,
 };

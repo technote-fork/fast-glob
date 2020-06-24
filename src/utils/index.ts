@@ -7,11 +7,11 @@ import * as stream from './stream';
 import * as string from './string';
 
 export {
-	array,
-	errno,
-	fs,
-	path,
-	pattern,
-	stream,
-	string,
+  array,
+  errno,
+  fs,
+  path,
+  pattern,
+  stream,
+  string,
 };

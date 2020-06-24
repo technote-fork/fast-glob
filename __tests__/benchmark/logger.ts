@@ -1,7 +1,7 @@
 export function head(message: string): void {
-	console.info('===> ' + message);
+  console.info('===> ' + message);
 }
 
 export function newline(): void {
-	console.log();
+  console.log();
 }
