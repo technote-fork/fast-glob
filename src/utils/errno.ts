@@ -1,5 +1,5 @@
-import { ErrnoException } from '../types';
+import {ErrnoException} from '../types';
 
 export function isEnoentCodeError(error: ErrnoException): boolean {
-	return error.code === 'ENOENT';
+  return error.code === 'ENOENT';
 }

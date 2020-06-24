@@ -1,45 +1,45 @@
 import * as assert from 'assert';
 
 import Reporter from './reporter';
-import { SuitePackResult } from './runner';
+import {SuitePackResult} from './runner';
 
 describe('Benchmark → Reporter', () => {
-	const results: SuitePackResult = {
-		name: 'name',
-		errors: 0,
-		retries: 1,
-		entries: 1,
-		measures: {
-			time: {raw: [1, 1, 1], average: 1, stdev: 0, units: 'ms'},
-			memory: {raw: [1, 1, 1], average: 1, stdev: 0, units: 'MB'},
-		},
-	};
+  const results: SuitePackResult = {
+    name: 'name',
+    errors: 0,
+    retries: 1,
+    entries: 1,
+    measures: {
+      time: {raw: [1, 1, 1], average: 1, stdev: 0, units: 'ms'},
+      memory: {raw: [1, 1, 1], average: 1, stdev: 0, units: 'MB'},
+    },
+  };
 
-	afterEach(() => {
-		results.errors = 0;
-	});
+  afterEach(() => {
+    results.errors = 0;
+  });
 
-	describe('.toString', () => {
-		it('should returns report', () => {
-			const reporter = new Reporter(results);
+  describe('.toString', () => {
+    it('should returns report', () => {
+      const reporter = new Reporter(results);
 
-			const expected = 'name\n(TIME) 1.000ms ±0.000% | (MEMORY) 1.000MB ±0.000% | Entries: 1 | Errors: 0 | Retries: 1';
+      const expected = 'name\n(TIME) 1.000ms ±0.000% | (MEMORY) 1.000MB ±0.000% | Entries: 1 | Errors: 0 | Retries: 1';
 
-			const actual = reporter.toString();
+      const actual = reporter.toString();
 
-			assert.strictEqual(actual, expected);
-		});
+      assert.strictEqual(actual, expected);
+    });
 
-		it('should returns report with errors', () => {
-			results.errors = 1;
+    it('should returns report with errors', () => {
+      results.errors = 1;
 
-			const reporter = new Reporter(results);
+      const reporter = new Reporter(results);
 
-			const expected = 'name\n(TIME) 1.000ms ±0.000% | (MEMORY) 1.000MB ±0.000% | Entries: 1 | Errors: 1 | Retries: 1';
+      const expected = 'name\n(TIME) 1.000ms ±0.000% | (MEMORY) 1.000MB ±0.000% | Entries: 1 | Errors: 1 | Retries: 1';
 
-			const actual = reporter.toString();
+      const actual = reporter.toString();
 
-			assert.strictEqual(actual, expected);
-		});
-	});
+      assert.strictEqual(actual, expected);
+    });
+  });
 });

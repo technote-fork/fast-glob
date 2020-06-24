@@ -2,78 +2,78 @@ import * as assert from 'assert';
 import * as fs from 'fs';
 import * as path from 'path';
 
-import { Stats } from '@nodelib/fs.macchiato';
+import {Stats} from '@nodelib/fs.macchiato';
 
-import Settings, { Options } from '../../src/settings';
-import { Entry, Pattern } from '../../src/types';
+import Settings, {Options} from '../../src/settings';
+import {Entry, Pattern} from '../../src/types';
 import Reader from '../../src/readers/reader';
 
 class TestReader extends Reader<never[]> {
-	constructor(options?: Options) {
-		super(new Settings(options));
-	}
+  constructor(options?: Options) {
+    super(new Settings(options));
+  }
 
-	public dynamic(): never[] {
-		return [];
-	}
+  public dynamic(): never[] {
+    return [];
+  }
 
-	public static(): never[] {
-		return [];
-	}
+  public static(): never[] {
+    return [];
+  }
 
-	public getFullEntryPath(filepath: string): string {
-		return this._getFullEntryPath(filepath);
-	}
+  public getFullEntryPath(filepath: string): string {
+    return this._getFullEntryPath(filepath);
+  }
 
-	public makeEntry(stats: fs.Stats, pattern: Pattern): Entry {
-		return this._makeEntry(stats, pattern);
-	}
+  public makeEntry(stats: fs.Stats, pattern: Pattern): Entry {
+    return this._makeEntry(stats, pattern);
+  }
 }
 
 function getReader(options?: Options): TestReader {
-	return new TestReader(options);
+  return new TestReader(options);
 }
 
 describe('Readers → Reader', () => {
-	describe('Constructor', () => {
-		it('should create instance of class', () => {
-			const reader = getReader();
+  describe('Constructor', () => {
+    it('should create instance of class', () => {
+      const reader = getReader();
 
-			assert.ok(reader instanceof TestReader);
-		});
-	});
+      assert.ok(reader instanceof TestReader);
+    });
+  });
 
-	describe('.getFullEntryPath', () => {
-		it('should return path to entry', () => {
-			const reader = getReader();
+  describe('.getFullEntryPath', () => {
+    it('should return path to entry', () => {
+      const reader = getReader();
 
-			const expected = path.join(process.cwd(), 'config.json');
+      const expected = path.join(process.cwd(), 'config.json');
 
-			const actual = reader.getFullEntryPath('config.json');
+      const actual = reader.getFullEntryPath('config.json');
 
-			assert.strictEqual(actual, expected);
-		});
-	});
+      assert.strictEqual(actual, expected);
+    });
+  });
 
-	describe('.makeEntry', () => {
-		it('should return created entry', () => {
-			const reader  = getReader();
-			const pattern = 'config.json';
+  describe('.makeEntry', () => {
+    it('should return created entry', () => {
+      const reader  = getReader();
+      const pattern = 'config.json';
 
-			const actual = reader.makeEntry(new Stats(), pattern);
+      const actual = reader.makeEntry(new Stats(), pattern);
 
-			assert.strictEqual(actual.name, pattern);
-			assert.strictEqual(actual.path, pattern);
-			assert.ok(actual.dirent.isFile());
-		});
+      assert.strictEqual(actual.name, pattern);
+      assert.strictEqual(actual.path, pattern);
+      assert.ok(actual.dirent.isFile());
+    });
 
-		it('should return created entry with fs.Stats', () => {
-			const reader  = getReader({stats: true});
-			const pattern = 'config.json';
+    it('should return created entry with fs.Stats', () => {
+      const reader  = getReader({stats: true});
+      const pattern = 'config.json';
 
-			const actual = reader.makeEntry(new Stats(), pattern);
+      const actual = reader.makeEntry(new Stats(), pattern);
 
-			assert.ok(actual.stats);
-		});
-	});
+      assert.ok(actual.stats);
+    });
+  });
 });

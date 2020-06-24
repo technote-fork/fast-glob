@@ -1,52 +1,52 @@
 import * as assert from 'assert';
 
-import Settings, { Options } from '../../../src/settings';
+import Settings, {Options} from '../../../src/settings';
 import * as tests from '../../tests';
-import { ErrorFilterFunction } from '../../../src/types';
+import {ErrorFilterFunction} from '../../../src/types';
 import ErrorFilter from '../../../src/providers/filters/error';
 
 function getErrorFilterInstance(options?: Options): ErrorFilter {
-	const settings = new Settings(options);
+  const settings = new Settings(options);
 
-	return new ErrorFilter(settings);
+  return new ErrorFilter(settings);
 }
 
 function getFilter(options?: Options): ErrorFilterFunction {
-	return getErrorFilterInstance(options).getFilter();
+  return getErrorFilterInstance(options).getFilter();
 }
 
 describe('Providers → Filters → Error', () => {
-	describe('Constructor', () => {
-		it('should create instance of class', () => {
-			const filter = getErrorFilterInstance();
+  describe('Constructor', () => {
+    it('should create instance of class', () => {
+      const filter = getErrorFilterInstance();
 
-			assert.ok(filter instanceof ErrorFilter);
-		});
-	});
+      assert.ok(filter instanceof ErrorFilter);
+    });
+  });
 
-	describe('.getFilter', () => {
-		it('should return true for ENOENT error', () => {
-			const filter = getFilter();
+  describe('.getFilter', () => {
+    it('should return true for ENOENT error', () => {
+      const filter = getFilter();
 
-			const actual = filter(tests.errno.getEnoent());
+      const actual = filter(tests.errno.getEnoent());
 
-			assert.ok(actual);
-		});
+      assert.ok(actual);
+    });
 
-		it('should return true for EPERM error when the `suppressErrors` options is enabled', () => {
-			const filter = getFilter({suppressErrors: true});
+    it('should return true for EPERM error when the `suppressErrors` options is enabled', () => {
+      const filter = getFilter({suppressErrors: true});
 
-			const actual = filter(tests.errno.getEperm());
+      const actual = filter(tests.errno.getEperm());
 
-			assert.ok(actual);
-		});
+      assert.ok(actual);
+    });
 
-		it('should return false for EPERM error', () => {
-			const filter = getFilter();
+    it('should return false for EPERM error', () => {
+      const filter = getFilter();
 
-			const actual = filter(tests.errno.getEperm());
+      const actual = filter(tests.errno.getEperm());
 
-			assert.ok(!actual);
-		});
-	});
+      assert.ok(!actual);
+    });
+  });
 });
