@@ -56,7 +56,7 @@ export function getEnvironmentAsInteger(name: string, value: number): number {
   return environment === undefined ? value : parseInt(environment, 10);
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any,@typescript-eslint/no-untyped-public-signature
+// eslint-disable-next-line @typescript-eslint/no-explicit-any,@typescript-eslint/explicit-module-boundary-types
 export function getEnvironmentAsObject(name: string, value: any): any {
   const environment = process.env[name];
 
