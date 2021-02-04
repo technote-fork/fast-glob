@@ -1,6 +1,6 @@
 {
   "name": "@technote-space/fast-glob",
-  "version": "3.1.32",
+  "version": "3.1.33",
   "description": "It's a very fast and efficient glob library for Node.js",
   "keywords": [
     "glob",
@@ -83,11 +83,11 @@
     "@types/node": "^14.14.22",
     "@types/rimraf": "^3.0.0",
     "@types/sinon": "^9.0.10",
-    "@typescript-eslint/eslint-plugin": "^4.14.1",
-    "@typescript-eslint/parser": "^4.14.1",
+    "@typescript-eslint/eslint-plugin": "^4.14.2",
+    "@typescript-eslint/parser": "^4.14.2",
     "compute-stdev": "^1.0.0",
     "easy-table": "^1.1.1",
-    "eslint": "^7.18.0",
+    "eslint": "^7.19.0",
     "eslint-config-mrmlnc": "^1.1.1",
     "execa": "^5.0.0",
     "fast-glob": "^3.2.5",
